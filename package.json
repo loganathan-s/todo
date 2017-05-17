@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "build": "webpack --progress --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "private": true,
   "engines": {
@@ -17,14 +17,30 @@
     "express": "^4.14.0",
     "morgan": "^1.7.0"
   },
- 
+   "jest": {
+    "transform": {".*": "<rootDir>/node_modules/babel-jest"},
+    "modulePaths": [
+      "/shared/vendor/modules"
+    ],
+    "moduleFileExtensions": ["js"],
+    "moduleDirectories": ["node_modules"],
+
+    "moduleNameMapper": {
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",    
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    }
+  },
   "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015-native-modules": "^6.9.4",
+    "css-loader": "^0.28.0",
+    "jest": "^20.0.3",
     "nodemon": "^1.9.2",
-     "babel-core": "^6.24.1",
-     "babel-loader": "^7.0.0",
-     "babel-preset-es2015-native-modules": "^6.9.4",
-     "css-loader": "^0.28.0",
-     "style-loader": "^0.16.1",
-     "webpack": "^2.4.1"
+    "regenerator-runtime": "^0.10.5",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.4.1"
   }
+
 }
