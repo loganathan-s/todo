@@ -59,9 +59,24 @@ class Request{
     .catch(err => {
       console.log(err);
     });
-  
-
   }
+
+
+  //
+  // DELETE Request
+  //  
+  static delete(url){
+      return fetch(url, {method: "delete", headers: this.HEADERS})
+              .then(response => {
+                  if (!response.ok) {
+                  throw new Error(response.statusText);
+                }
+                return response.ok;
+            })
+     .catch(err => {
+        console.log(err);
+      });
+    }
   
 }
 

@@ -53,15 +53,31 @@ class Task extends TaskSetUp{
     }
 
   //
+  //delete Task 
+  //
+  delete(taskId){
+   let id = event.currentTarget.id.match(/\d+/g) 
+   Request.delete(`${appURL}/api/tasks/${id}`)
+       .then(() => {
+         return this.removeTaskInDom(id);
+       })
+       .catch(err => {
+         return err.message;
+        });
+    }
+
+  //
   // Update the Task list in html page
   //
   updateTaskList(task){
-     let currentTask = `<label class="${task.text.includes("-TASKCOMPLETED-") ? "panel-block" : "panel-block markDone"}" id="task-${task.id}" >
-                            <span  class="${task.text.includes("-TASKCOMPLETED-") ? "lineThrough" : ""}" id="taskText${task.id}">${task.text.replace("-TASKCOMPLETED-", "")}</span>
-                        </label>`;
+     let currentTask = `<div><label class="${task.text.includes("-TASKCOMPLETED-") ? "panel-block" : "panel-block markDone"}" id="task-${task.id}" >
+                            <span  class="${task.text.includes("-TASKCOMPLETED-") ? "lineThrough" : ""}" id="taskText${task.id}">${task.text.replace("-TASKCOMPLETED-", "")}
+                            </span>
+                        </label>
+                        <span><a class="button is-primary is-small" id="taskDelete-${task.id}">X</a></span></div>`;
       this.parentElement.insertAdjacentHTML("beforeend", currentTask);
       document.querySelector(`#task-${task.id}`).addEventListener("click", this.markCompleteOrIncomplte.bind(this));
-    
+      document.querySelector(`#taskDelete-${task.id}`).addEventListener("click", this.delete.bind(this));
   }
   
   //
@@ -70,8 +86,15 @@ class Task extends TaskSetUp{
   updateUserDom(id){
     document.querySelector(`#taskText${id}`).classList.toggle("lineThrough");
     document.querySelector(`#task-${id}`).classList.toggle("markDone");
-
   }
+
+  // 
+  // Remove task from DOM
+  //
+  removeTaskInDom(id){
+    document.querySelector(`#taskText${id}`).closest("div").remove();
+  }
+
 
  
 }
