@@ -1,0 +1,20 @@
+.m-l-50{
+    margin-left: 20%;
+}
+
+.m-r-10{
+    margin-left: 10px;
+}
+
+.m-t-20{
+ margin-top: 20px;
+}
+
+
+.lineThrough{
+  text-decoration: line-through;
+}
+
+.disableClick{
+    pointer-events: none;
+}

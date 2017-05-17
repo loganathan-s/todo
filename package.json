@@ -1,0 +1,30 @@
+{
+  "name": "todoapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "build": "webpack --progress --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "engines": {
+    "node": "4.4.7"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  },
+ 
+  "devDependencies": {
+    "nodemon": "^1.9.2",
+     "babel-core": "^6.24.1",
+     "babel-loader": "^7.0.0",
+     "babel-preset-es2015-native-modules": "^6.9.4",
+     "css-loader": "^0.28.0",
+     "style-loader": "^0.16.1",
+     "webpack": "^2.4.1"
+  }
+}
