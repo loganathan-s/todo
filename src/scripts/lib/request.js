@@ -10,7 +10,7 @@ class Request{
     return  {
               "Accept":  "application/json, text/plain", 
               "Content-Type": "application/json"
-            }
+            };
     }
 
   //
@@ -18,12 +18,12 @@ class Request{
   //  
   static get(url){
     return fetch(url)
-   .then(response => {
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
-    })
+            .then(response => {
+                if (!response.ok) {
+                throw new Error(response.statusText);
+              }
+              return response.json();
+          })
    .catch(err => {
       console.log(err);
     });
@@ -33,7 +33,7 @@ class Request{
   // POST Request
   //  
   static post(url, data){
-    return fetch(url, {method: 'post', headers: this.HEADERS, body: JSON.stringify(data)})
+    return fetch(url, {method: "post", headers: this.HEADERS, body: JSON.stringify(data)})
            .then(response => {
               if (!response.ok) {
                  throw new Error(response.statusText);
@@ -49,7 +49,7 @@ class Request{
   // PUT Request
   //  
   static put(url, data){
-    return fetch(url, {method: 'put', headers: this.HEADERS, body: JSON.stringify(data)})
+    return fetch(url, {method: "put", headers: this.HEADERS, body: JSON.stringify(data)})
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText);
@@ -61,7 +61,6 @@ class Request{
     });
   
 
-    
   }
   
 }
