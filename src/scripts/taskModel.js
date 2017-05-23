@@ -15,7 +15,11 @@ class Task extends TaskSetUp{
   index(){
     Request.get(`${appURL}/api/tasks`)
       .then(response => {
+                       console.log(response);
+
         for (let [id, task] of Object.entries(response)) {
+               console.log(id);
+
           this.updateTaskList(task);
         }
      })
@@ -70,11 +74,13 @@ class Task extends TaskSetUp{
   // Update the Task list in html page
   //
   updateTaskList(task){
-     let currentTask = `<div><label class="${task.text.includes("-TASKCOMPLETED-") ? "panel-block" : "panel-block markDone"}" id="task-${task.id}" >
-                            <span  class="${task.text.includes("-TASKCOMPLETED-") ? "lineThrough" : ""}" id="taskText${task.id}">${task.text.replace("-TASKCOMPLETED-", "")}
-                            </span>
-                        </label>
-                        <span><a class="button is-primary is-small" id="taskDelete-${task.id}">X</a></span></div>`;
+     let currentTask = `<div class="${task.text.includes("-TASKCOMPLETED-") ? "panel-block" : "panel-block markDone"}" id="task-${task.id}">
+                            <div  class=" ${task.text.includes("-TASKCOMPLETED-") ? "lineThrough" : ""}" id="taskText${task.id}">
+                              ${task.text.replace("-TASKCOMPLETED-", "")}
+                            </div>
+                            <a class="deleteFlex button" id="taskDelete-${task.id}">Delete</a>
+                          </div>
+                        `;
       this.parentElement.insertAdjacentHTML("beforeend", currentTask);
       document.querySelector(`#task-${task.id}`).addEventListener("click", this.markCompleteOrIncomplte.bind(this));
       document.querySelector(`#taskDelete-${task.id}`).addEventListener("click", this.delete.bind(this));
@@ -92,7 +98,7 @@ class Task extends TaskSetUp{
   // Remove task from DOM
   //
   removeTaskInDom(id){
-    document.querySelector(`#taskText${id}`).closest("div").remove();
+    document.querySelector(`#task-${task.id}`).closest("div").remove();
   }
 
 

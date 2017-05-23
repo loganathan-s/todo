@@ -1,0 +1,144 @@
+I'm trying to check the DOM element count after calling a method. The dom seems to be always empty. I guess somewhere I've to include the HTML file. Can someone let me know the way to test this. FYI I'm using webpack.
+**HTML FILE**
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <title>Todo App</title>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.1/css/bulma.css">
+         <link rel="stylesheet" href="style.css">
+              <script src="./_build/bundle.js"></script>
+    
+    </head>
+    <body class="layout-documentation page-overview" data-gr-c-s-loaded="true" style="zoom: 1;">
+    
+    <div class="columns">
+    <div class="column is-three-quarters">
+      <section class="m-t-20">
+              <nav class="panel m-l-50" id="todoPanel">
+                <p class="panel-heading">
+                  ToDo App!
+                </p>
+                <div class="panel-block">
+                  <p class="control has-icons-left">
+                    <input class="input is-medium" type="text" id="taskDescription" autocomplete="off">
+                  </p>
+                   <div class="block m-r-10">
+                     <a class="button is-primary is-medium" id="createTask" disabled="true"> Create task</a>
+                    </div>
+                </div>
+              </nav>
+       </section>
+     </div>  
+     </div>  
+    </body>
+    </html>
+
+
+**taskModel.js**
+
+    import {BACKENDAPP_URL as appURL} from "./backendConf";
+    import Request from "./lib/request";
+    import TaskSetUp from "./TaskSetUp";
+    //
+    // Class Which inherits to TaskSetUp Class and to handle all CRUD for Task
+    //
+    class Task extends TaskSetUp{
+      constructor(){
+        super();
+      }
+    
+      //
+      // List All tasks from the backend server
+      //
+      index(){
+        Request.get(`${appURL}/api/tasks`)
+          .then(response => {
+            for (let [id, task] of Object.entries(response)) {
+              this.updateTaskList(task);
+            }
+         })
+         .catch(err => {
+           return err.message;
+          });
+    
+      }
+    
+      //
+      // Update the Task list in html page
+      //
+      updateTaskList(task){
+         let currentTask = `<div><label class="${task.text.includes("-TASKCOMPLETED-") ? "panel-block" : "panel-block markDone"}" id="task-${task.id}" >
+                                <span  class="${task.text.includes("-TASKCOMPLETED-") ? "lineThrough" : ""}" id="taskText${task.id}">${task.text.replace("-TASKCOMPLETED-", "")}
+                                </span>
+                            </label>
+                            <span><a class="button is-primary is-small" id="taskDelete-${task.id}">X</a></span></div>`;
+          this.parentElement.insertAdjacentHTML("beforeend", currentTask);
+          document.querySelector(`#task-${task.id}`).addEventListener("click", this.markCompleteOrIncomplte.bind(this));
+          document.querySelector(`#taskDelete-${task.id}`).addEventListener("click", this.delete.bind(this));
+      }
+     } 
+
+**request.js**
+
+    class Request{
+    
+      //
+      // Set Header for All the requests
+      //
+      static get HEADERS() {
+        return  {
+                  "Accept":  "application/json, text/plain", 
+                  "Content-Type": "application/json"
+                };
+        }
+    
+      //
+      // GET Request
+      //  
+      static get(url){
+        return fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error(response.statusText);
+                  }
+                  return response.json();
+              })
+       .catch(err => {
+          console.log(err);
+        });
+      }
+      }
+    
+**request.js(JEST MOCK)**
+
+    jest.dontMock('../scripts/lib/request');
+    import Request from '../scripts/lib/request';
+    const fs = require('fs')
+    Request.get = jest.genMockFn();
+    Request.get.mockImplementation(function(url) {
+       let data = {
+            "1": { "id": '1', "text": "Read description of programming challenge" },
+              "2": { "id": "2", "text": "Implement awesome web app" },
+              "3": { "id": "3", "text": "Polish project" },
+              "9": { "id": "9", "text": "Send solution to LogMeIn" }
+            };
+      return Promise.resolve(data);
+    });
+    export default Request;
+
+**taskModel.tes.js**
+
+    jest.dontMock('../scripts/taskModel');
+    import Request from '../__mocks__/request';
+    import Task from '../scripts/taskModel';
+    
+    describe('taskModel', () => {
+    	it('Should initialize with no friends items', function() {
+    		expect(document.querySelectorAll('.panel-block').length).toBe(0); // THIS IS ALWAYS RETURNS EMPTY NODELIST
+    	    var task = new Task();
+    	    task.index();
+            expect(document.querySelectorAll('.panel-block').length).toBeGreaterThanOrEqual(1); // THIS IS ALWAYS RETURNS EMPTY NODELIST
+    	});
+    });
