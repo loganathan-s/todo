@@ -16,6 +16,7 @@ class TaskSetUp{
     this.createTaskButton.addEventListener("click", this.createTask.bind(this));
     this.displayAllTasks();
   }
+
   //
   // Display All tasks when user loads the page
   //
@@ -61,6 +62,11 @@ class TaskSetUp{
     this.createTaskButton.setAttribute("disabled", true);
   }
 
+  toggleUpdateForm(id){
+    document.querySelector(`#taskUpdateForm-${id}`).classList.toggle("hide");
+    document.querySelector(`#taskDetail-${id}`).classList.toggle("hide");
+  }
+
   //
   // Update the Task Text with delimter to keep the persistent data of whether the task is complete/incomplete. This can be even done by simply updating the localstorage, but updating backend is the best approach
   //
@@ -68,14 +74,16 @@ class TaskSetUp{
     const task = new Task();
     const id = event.currentTarget.id.match(/\d+/g);
     const taskElement = document.querySelector(`#task-${id}`);
-    const tasktext = document.querySelector(`#taskText${id}`).textContent;
-    if(taskElement.classList.contains("markDone")){
-      var taskData = {id, text: `${tasktext}-TASKCOMPLETED-`};
+    let tasktext = document.querySelector(`#taskText${id}`).textContent;
+    if(event.currentTarget.classList.contains("updateTask")){
+       tasktext = document.querySelector(`#UpdatedContent-${id}`).value;
+       var taskData = {id, text: tasktext};
+       task.update(taskData, id, true);
     }else{
-      tasktext.replace("-TASKCOMPLETED-","");
-      var taskData = {id, text: tasktext.replace("-TASKCOMPLETED-","")};
+      var taskData = {id, text: `${tasktext}-TASKCOMPLETED-`};
+      task.update(taskData, id);
     }
-    task.update(taskData, id);
+    
   }
 }
 

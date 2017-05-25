@@ -4,24 +4,25 @@
   <meta charset="UTF-8">
   <title>Todo App</title>
      <link rel="stylesheet" href="style.css">
-          <script src="./_build/bundle.js"></script>
-
+      <script src="./_build/bundle.js"></script>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+  <header>
+        <h4>The application provides the functionality to view the list of to-do items, create them, and mark them as done. The front-end technology is based on <strong> JavaScript-ES6 / HTML / CSS3(Flex Layout)</strong>,Tasks are stored using a Rest service</h4>
+  </header>
   <div class="wrapper">
-   <header>
-      <h4>The application provides the functionality to view the list of to-do items, create them, and mark them as done. The front-end technology is based on <strong> JavaScript-ES6 / HTML / CSS3(Flex Layout)</strong>,Tasks are stored using a Rest service</h4>
-   </header>
-   <div class="panel-block" id="taskForm">
-      <div>
-        <input class="input" type="text" id="taskDescription" autocomplete="off">
-      </div>
-      <div>
-         <a class="button is-primary is-medium" id="createTask" disabled="true"> Create task</a>
-      </div>
-    </div>
-  <div id="todoPanel">
-  </div>
+   
+       <div class="panel-block m-t-20" id="taskForm">
+          <div>
+            <input class="input" type="text" id="taskDescription" autocomplete="off">
+            <a class="button is-primary is-medium" id="createTask" disabled="true"> Create task</a>
+          </div>
+          
+        </div>
+        <div id="todoPanel" class="m-t-20">
+            
+        </div>
   </div>
 </body>
 </html>
