@@ -30,6 +30,8 @@ class TaskSetup {
   // Create Task using the api
   //
   createTask(){
+    // Disable form submit to avoid page reload
+    event.preventDefault();
     const text = this.taskContent.value;
     this.removeError(this.taskContent);
     if (text){
