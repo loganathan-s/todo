@@ -9,20 +9,20 @@
 </head>
 <body>
   <header>
-        <h4>The application provides the functionality to view the list of to-do items, create them, and mark them as done. The front-end technology is based on <strong> JavaScript-ES6 / HTML / CSS3(Flex Layout)</strong>,Tasks are stored using a Rest service</h4>
+        <h5>The application provides the functionality to view the list of to-do items, create them, and mark them as done. The front-end technology is based on <strong> JavaScript-ES6 / HTML / CSS3(Flex Layout)</strong>,Tasks are stored using a Rest service</h5>
   </header>
-  <div class="wrapper">
-   
-       <div class="panel-block m-t-20" id="taskForm">
-          <div>
-            <input class="input" type="text" id="taskDescription" autocomplete="off">
-            <a class="button is-primary is-medium" id="createTask" disabled="true"> Create task</a>
-          </div>
-          
+  <div id="main">
+    <div class="wrapper">
+      <div id="serverError" class="errorText hide"></div>
+      <div id="taskForm">
+         <div>
+          <input type="text" id="taskDescription" autocomplete="off">
+          <a class="button zoom" id="createTask"> Create task</a>
         </div>
-        <div id="todoPanel" class="m-t-20">
-            
-        </div>
-  </div>
+      </div>
+    </div>
+     <div id="todoPanel" class="m-t-20">
+     </div>
+   </div>
 </body>
 </html>
