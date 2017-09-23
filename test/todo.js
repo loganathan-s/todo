@@ -26,7 +26,7 @@ describe( "TODO", function(){
       .wait( taskDescription )
       .type( taskDescription, " MyNewTask ")
       .click("#createTask")
-      .wait( ".taskItem" )
+      .wait( ".editTask" )
       .evaluate(() => {
         return document.querySelector( ".editTask" ).innerText;;
       })
