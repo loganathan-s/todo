@@ -43,12 +43,12 @@ header{
 }
 
 
-#taskForm > div:first-child {
+#taskForm > form:first-child {
   flex: 2 0 100%;
   display: flex;
 }
 
-#taskForm > div input {
+#taskForm > form input {
   padding: 10px;
   margin-right: 10px;
   flex-basis: 80%;

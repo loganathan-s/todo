@@ -26,6 +26,7 @@ describe( "TODO", function(){
       .wait( taskDescription )
       .type( taskDescription, " MyNewTask ")
       .click("#createTask")
+      .wait(100)
       .wait( ".editTask" )
       .evaluate(() => {
         return document.querySelector( ".editTask" ).innerText;;
@@ -64,8 +65,9 @@ describe( "TODO", function(){
           .wait(`#taskText${task[0]}`)
           .realClick(`#taskEdit-${task[0]}`)
           .wait(`#UpdatedContent-${task[0]}`)
-          .type(`#UpdatedContent-${task[0]}`, `UPDATEDTASk`)
+          .type(`#UpdatedContent-${task[0]}`, `UPDATEDTASK`)
           .click(`#taskUpdate-${task[0]}`)
+          .wait(100)
           .evaluate(function(task) {
               return [document.querySelector(`#taskEdit-${task[0]}`).innerText, task[1]]
           },task)
@@ -73,7 +75,7 @@ describe( "TODO", function(){
       .then((text) => {
         const oldText = text[1]
         const updatedText = text[0]
-        expect(updatedText).to.eql("UPDATEDTASk");
+        expect(updatedText).to.eql("UPDATEDTASK");
         done();
       }).catch( onError );
   });
@@ -115,6 +117,7 @@ describe( "TODO", function(){
           return Browser
             .wait(`#taskDelete-${taskId}`)
             .click(`#taskDelete-${taskId}`)
+            .wait(100)
             .evaluate(function(taskId) {
               let link = document.querySelector(`#taskDetail-${taskId}`)
                 return [document.querySelector(`#taskDetail-${taskId}`), document.querySelector(`#taskUpdateForm-${taskId}`)]
