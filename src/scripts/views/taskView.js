@@ -29,7 +29,7 @@ class View extends TaskSetup{
   updateUserDom(id){
     let link = document.querySelector(`#task-${id}`);
     document.querySelector(`#taskText${id}`).classList.toggle("lineThrough");
-     link.innerHTML = document.querySelector(`#taskText${id}`).classList.contains("lineThrough") ? "Redo" : "Mark complete";
+     link.innerHTML = document.querySelector(`#taskText${id}`).classList.contains("lineThrough") ? "Undo complete" : "Mark complete";
   }
 
   // 
@@ -50,7 +50,7 @@ class View extends TaskSetup{
   }
 
   updateTaskContent(task){
-    document.querySelector(`#task-${task.id}`).innerHTML = this.taskCompleted(task) ? "Redo" : "Mark Complete";
+    document.querySelector(`#task-${task.id}`).innerHTML = this.taskCompleted(task) ? "Undo complete" : "Mark Complete";
     document.querySelector(`#taskText${task.id}`).firstChild.nextSibling.innerHTML  = `${task.text.replace("-TASKCOMPLETED-", "")}`;
     document.querySelector(`#taskUpdateForm-${task.id}`).classList.toggle("hide");
     document.querySelector(`#taskDetail-${task.id}`).classList.toggle("hide");
@@ -76,7 +76,7 @@ class View extends TaskSetup{
                   </p>
                </div>
                <div class="options">
-                    <a class="link zoom" id="task-${task.id}">${this.taskCompleted(task) ? "Redo" : "Mark complete"}</a>
+                    <a class="link zoom" id="task-${task.id}">${this.taskCompleted(task) ? "Undo complete" : "Mark complete"}</a>
                     <a class="link zoom updateFlex" id="taskDelete-${task.id}">Delete</a>
                </div>
           </div>
