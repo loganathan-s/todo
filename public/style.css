@@ -1,140 +1,99 @@
-html{
-    width: 100%
+html {
+    font-family: sans-serif;
+    background:#F4F4F4;
+  }
 
+body {
+  margin: 0;
+  padding: 1px;
 }
 
-body{
-  background-color:#FFF;
-   margin: 0;
-    text-align: center;
-}
-.m-l-50{
-    margin-left: 20%;
-}
-
-
-.m-r-10{
-    margin-left: 10px;
-}
-
-.m-t-20{
- margin-top: 20px;
-}
-
-
-.lineThrough{
-  text-decoration: line-through;
-  color: green;
-}
-
-.disableClick{
-    pointer-events: none;
-}
 
 header{
-  background-color: #2D9EE0!important;
-  color: white;
-   display: flex;
-  flex: 1 1 100vh;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  color:#111111;
+  background-color:#FFD700;
+  display: flex;
+  padding: 10px;
+}
+
+#main { 
+ width: 80%; 
+ border-style:solid solid solid solid;
+ border-width: 1px;
+ border-color: rgba(0,0,0,.1);
+ margin: 50px auto auto auto;
 }
 
 .wrapper{
-  margin: 20px;
+  text-align: center;
   position: relative;
   display: flex;
-  flex: 1 1 100vh;
+  flex: 1 0 100%;
   flex-wrap: wrap;
-  justify-content: space-between;
+  padding: 5px;
 }
 
+/* TaskForm CSS Begin */
 #taskForm{
+  flex: 1 0 90%;
   padding: 10px;
-  border-radius: 1px;
   height: 30px;
-  flex: 1 1 100vh;
-  border: 1px solid red;
   display: flex;
   justify-content: center;
 }
 
-#taskForm > div {
-  margin-top: 10px;  
-  display: flex; 
-  margin: 5px;
-  flex-grow: 1;
-  align-items: center;
-  justify-content: flex-start;
-}
 
 #taskForm > div:first-child {
+  flex: 2 0 100%;
   display: flex;
-  flex-grow: 2;
-  margin-right: 10px;
-  flex-basis: 100%;
 }
 
 #taskForm > div input {
   padding: 10px;
   margin-right: 10px;
-  display: flex;
   flex-basis: 80%;
 }
+/* TaskForm CSS End */
 
-#taskForm > div a {
- display: flex;
- padding: 10px;
- justify-content: flex-start;
- align-items: center;
-}
 
-div.borderOpac{
-  display: flex;
-  justify-content: center;
-  box-shadow: 0px 0px 0px 8px rgba(0,0,0,0.3);       
-}
-
-.button{
-  padding: 5px;
-  display: inline-block;
-  color: white;
-  background-color: green;
-  cursor: pointer;
-  background-color: rgb(29, 123, 123);
-  border-radius: 5px;
-}
-
+/* TaskLists stye Begin */ 
 #todoPanel{
+  flex: 0 0 80%;
   display: flex;
-  justify-content: flex-start;
+  flex-direction: column;
   height: 100%;
   flex-grow: 1;
   padding: 5px;
   margin: 5px;
-  flex-wrap: wrap;
-  align-items: center;
-  height: 100%;
 }
 
 
 .taskItem{
-    margin: 5px;
+    border-top-style: solid; 
+    border-top-width: 1px;
+    border-color: rgba(0,0,0,.1);
+    margin: 1px;
+    padding: 1px;
+    flex-direction: row;
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    padding: 1px 15px;
-    box-sizing: content-box;
-    box-shadow: 0 0 5px 1px black;
-    padding: 15px;
+    flex: 0 0 80%;
 }
 
-
-.p-15{
-  padding: 10px;
+.taskItem > .options{
+  flex: 1 0 100%;
+  display: flex;
+  flex-direction: row; 
 }
 
+.taskText {
+  flex: 0 0 70%;
+}
+/* TaskLists stye End */ 
+
+
+/* Update Form style Begin */
 .updateForm{
+  background-color: #fff;
   margin: 5px;
   padding: 5px;
   display: flex;
@@ -145,99 +104,238 @@ div.borderOpac{
   align-items: center;
   padding: 1px 15px;
   flex-grow: 1;
-  transition-delay: 2s;
+  z-index: 3;
 }
-
 
 .updateForm > p{
    margin: 5px;
    display: flex;
+   justify-content: space-between;
 }
 
 .updateForm > p:first-child{
   flex-grow: 2;
 }
 
-
 .updateForm > p input{
   height: 30px;
   flex-basis: 100%;
 }
-
 .updateForm > p a{
   padding: 10px;
   margin: 5px
 }
+/* Update Form style End */
 
-.actionList{
-  display: flex;
-  position: relative;
-  flex-direction: column;
-  color: black;
-  padding: 12px 16px;
+/* Common styles Begin*/
+.bgBlue:hover {
+  background-color: #357EDD;
+  color: #FFFFF;
 }
+
+.bgRed:hover {
+  background-color: #FF4136;
+  color: white;
+}
+
+.inputError{
+       border:2px solid #FF0000;
+    }
+
+#serverError {
+  padding: 10px;
+  flex-basis: 100%;
+}
+
+.errorText {
+  color: red;
+  font-size: 16px;
+  margin: 1px;
+}
+
+.lineThrough{
+  text-decoration: line-through;
+  color: #137752;
+}
+
+
+.link {
+  color: #CCCCCC;
+  text-decoration: none;
+  background-color: transparent;
+  transition: background-color 0.5s ease;
+}
+
+.link:hover {
+  color: rgb(0, 0, 0);
+  background-color: #FFD700;
+  cursor: pointer;
+  border-radius: 5px;
+  border: solid 1px;
+
+}
+
+input:focus {
+  background-color: #FBF1A9;
+}
+
+input {height:10px;}
+
+
+.button{
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  background-color: transparent;
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: .4rem 1rem .4rem 1rem;
+  align-self: center;
+  
+}
+
+.button:hover{
+  background-color: #FFD700;
+  cursor: pointer;
+}
+
 
 .hide{
   display: none;
 }
 
-.displayFlex{
-  display: flex;
-}
-
-.options {
-  border: 1px solid green;
-  border-radius: 5px;
-  text-align: center;
-  display: flex;
-  background-color: white;
-  color: black;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .options > a {
   padding: 5px;
-
   margin: 5px;
-
+  align-self: center;
 }
 
-.options > a:hover {
-   background-color: green;
-   color: white;
-   cursor: pointer;
-   transition: all;
+
+.editTask {
+  padding: 10px;
+  position: relative;
 }
 
-.options > a.deleteTask:hover {
-   background-color: red;
+.editTask:hover{
+  cursor: pointer;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.08);
+}
+/* Common styles End*/
+
+/* Animation styles Begin*/
+.zoom {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    transition: -webkit-transform .25s ease-out;
+    transition: transform .25s ease-out;
+    transition: transform .25s ease-out,-webkit-transform .25s ease-out;
+    z-index: 2;
 }
 
-.options > a.editTask:hover {
-   background-color: #f68320;
+.zoom:hover, .zoom:focus{
+  -webkit-transform:scale(1.05);
+  transform:scale(1.05)
 }
 
-.taskText {
-  text-align: center;
-  margin: 5px;
+.shakeIt {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
-.completedTask{
-  background-color: gray;
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+/*Animation styles End */
+
+/* Tooltip Begin*/
+[tooltip]::before {
+    content: "";
+    position: absolute;
+    top:-6px;
+    transform: translateX(-50%);
+    border-width: 4px 6px 0 6px;
+    border-style: solid;
+    border-color: rgba(0,0,0,0.7) transparent transparent transparent;
+    z-index: 99;
+    opacity:0;
 }
 
-@media screen and (max-width: 480px) {
+[tooltip-position='bottom']::before{
+  top:100%;
+  margin-top:8px;
+  transform: translateX(-0%) translatey(-100%) rotate(-180deg)
+}
+
+[tooltip]::after {
+    content: attr(tooltip);
+    position: absolute;
+    top:-6px;
+    transform: translateX(-100%) translatey(-50%) ;
+    text-align: center;
+    padding:4px 2px;
+    font-size: 12px;
+    min-width: 80px;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    pointer-events: none;
+    padding: 4px 4px;
+    z-index:99;
+    opacity:0;
+}
+
+[tooltip-position='bottom']::after{
+  top:100%;
+  left: 40px;
+  background-color: #E8FDF5;
+  border-color: rgba(0,0,0,.1);
+  color: black;
+  margin-top:8px;
+  transform: translateX(-50%) translateY(0%);
+}
+
+[tooltip]:hover::after,[tooltip]:hover::before {
+   opacity:1
+}
+/* Tooltip End*/
+
+
+/* Style for Smaller screens */
+@media screen and (max-width: 700px) {
+  #taskForm{
+    height: 100%;
+    flex-direction: column;
+    padding: 10px;
+ }
+
+  #taskForm > div > a { margin: 10px; }
+
   .taskItem, .updateForm{
     background-color: #fff7e5;
     flex-direction: column;
+    text-align: center;
     justify-content: space-around;
   }
 
-  .button{
-    background-color: rgb(29, 123, 123);
-  }
    #taskForm,  #taskForm > div, #todoPanel {
       flex-direction: column;
    }
@@ -246,6 +344,15 @@ div.borderOpac{
       flex-direction: row;
       justify-content: space-around;
    }
+
+   [tooltip]::before {
+    position: fixed;
+  }
+
+  .updateForm > p:first-child{
+    flex-direction: column;
+    align-self: stretch;
+}
 
 
 }

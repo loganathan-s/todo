@@ -7,7 +7,7 @@ module.exports = {
 	devtool: 'source-map',
 	// Where do you want to make entry point for the app, in this app 'app.js' is the entry point
 	entry: {
-		filename: './src/scripts/main.js'
+		filename: './src/scripts/app.js'
 	},
     // Where should the webpack output has to be placed,  in this app '_build' is the output destination 
 	output: {
@@ -27,18 +27,6 @@ module.exports = {
 				query: {
 					presets: ['es2015-native-modules']
 				}
-			},
-			
-			{
-			  test: /\.css$/,
-			  use: [
-			    {
-			      loader: 'css-loader',
-			      options: {
-			        minimize: true || {/* CSSNano Options */}
-			      }
-			    }
-			  ]
 			}
 		]
 	},
