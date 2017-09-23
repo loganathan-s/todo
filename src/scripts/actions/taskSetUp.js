@@ -1,7 +1,7 @@
 import Task from "../dataModel/task";
 import { extractNumber } from "../helpers/helper";
 
-class TaskSetup{
+class TaskSetup {
  
  
   constructor(){
@@ -14,7 +14,6 @@ class TaskSetup{
   //Attach EventListener to elements
   //
   init(){
-//    this.taskContent.addEventListener("keyup", this.toggleCreateTaskButton.bind(this));
     this.createTaskButton.addEventListener("click", this.createTask.bind(this));
     this.displayAllTasks();
   }
@@ -26,7 +25,6 @@ class TaskSetup{
      let task = new Task();
      task.index();
    }
-
 
   //
   // Create Task using the api
@@ -45,11 +43,14 @@ class TaskSetup{
      this.displayError(this.taskContent);
      }
   }
-
-  toggleUpdateForm(id){
-    document.querySelector(`#taskUpdateForm-${id}`).classList.toggle("hide");
-    document.querySelector(`#taskDetail-${id}`).classList.toggle("hide");
-  }
+   //
+  //delete Task 
+  //
+  delete(taskId){
+   let id = event.currentTarget.id.match(/\d+/g);
+     let task = new Task();
+     task.delete(id);
+    }
 
   //
   // Update the Task Text with delimter to keep the persistent data of whether the task is complete/incomplete. This can be even done by simply updating the localstorage, but updating backend is the best approach

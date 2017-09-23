@@ -25,7 +25,7 @@ class Request{
               return response.json();
           })
    .catch(err => {
-      console.log(err);
+      throw new Error(err);
     });
   }
   
@@ -41,7 +41,7 @@ class Request{
               return true;
             })
            .catch((err) => {
-                 console.log(err);
+               throw new Error(err);
             });
   }
 
@@ -57,7 +57,7 @@ class Request{
       return true;
     })
     .catch(err => {
-      console.log(err);
+     throw new Error(err);
     });
   }
 
@@ -74,7 +74,7 @@ class Request{
                 return response.ok;
             })
      .catch(err => {
-        console.log(err);
+       throw new Error(err);
       });
     }
   
