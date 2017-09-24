@@ -17,7 +17,7 @@ class TaskSetup {
 
   /* Display All tasks when user loads the page */
   displayAllTasks(){
-     let task = new Task();
+     const task = new Task();
      task.index();
   }
   
@@ -40,8 +40,8 @@ class TaskSetup {
 
   /* Delete Task Action */
   delete(taskId){
-    let id = event.currentTarget.id.match(/\d+/g);
-    let task = new Task();
+    const id = event.currentTarget.id.match(/\d+/g);
+    const task = new Task();
     task.delete(id);
   }
   
@@ -59,11 +59,11 @@ class TaskSetup {
           displayError(newValue);
           return;
        }
-       let taskData = {id, text: tasktext.replace("-TASKCOMPLETED-", "")};
+       const taskData = {id, text: tasktext.replace("-TASKCOMPLETED-", "")};
        task.update(taskData, id, true);
     }else{
-      let text = event.currentTarget.classList.contains("markComplete") ? `${tasktext}-TASKCOMPLETED-` : tasktext.replace("-TASKCOMPLETED-", "");
-      let taskData = {id, text};
+      const text = event.currentTarget.classList.contains("markComplete") ? `${tasktext}-TASKCOMPLETED-` : tasktext.replace("-TASKCOMPLETED-", "");
+      const taskData = {id, text};
       task.update(taskData, id);
     }
   }

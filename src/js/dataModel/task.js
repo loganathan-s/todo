@@ -15,7 +15,7 @@ class Task extends TaskSetup {
   index(){
     Request.get(`${appURL}/api/tasks`)
       .then(response => {
-        for (let [id, task] of Object.entries(response)) {
+        for (const [id, task] of Object.entries(response)) {
           View.Render().updateTaskList(task, false);
         }
      })

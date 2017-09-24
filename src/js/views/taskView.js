@@ -10,7 +10,7 @@ class View extends TaskSetup {
   /* Update the Task list */
   updateTaskList(task, animate){
       this.parentElement.insertAdjacentHTML("afterbegin", this.createTaskElementDom(task, animate));
-      let parentInstance = this;
+      const parentInstance = this;
       document.querySelectorAll(`#taskUpdate-${task.id}, #task-${task.id}`).forEach(function(node){
         node.addEventListener("click", parentInstance.markCompleteOrIncomplte.bind(parentInstance));
       });
@@ -24,7 +24,7 @@ class View extends TaskSetup {
   updateUserDom(id){
     let link = document.querySelector(`#task-${id}`);
     document.querySelector(`#taskText${id}`).classList.toggle("lineThrough");
-     link.innerHTML = document.querySelector(`#taskText${id}`).classList.contains("lineThrough") ? "Undo complete" : "Mark complete";
+    link.innerHTML = document.querySelector(`#taskText${id}`).classList.contains("lineThrough") ? "Undo complete" : "Mark complete";
   }
 
   /* Remove task from DOM */
@@ -38,7 +38,7 @@ class View extends TaskSetup {
 
   /* Display task update form */
   displayUpdateForm(){
-    let id = event.currentTarget.id.match(/\d+/g);
+    const id = event.currentTarget.id.match(/\d+/g);
     let updateInputElement = document.querySelector(`#UpdatedContent-${id}`);
     removeError(updateInputElement);
     resetInput(updateInputElement);

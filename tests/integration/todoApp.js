@@ -12,11 +12,10 @@ describe( "User", function(){
   });
 
   it( "should add new task to the list", (done) => {
-    const taskDescription = "#taskDescription";
     Browser
       .refresh()
-      .wait(taskDescription)
-      .type(taskDescription, "MyNewTask")
+      .wait("#taskDescription")
+      .type("#taskDescription", "MyNewTask")
       .click("button[type=submit]")
       .wait(100)
       .wait(".editTask")
@@ -30,10 +29,9 @@ describe( "User", function(){
   });
 
   it( "should see error for empty task create", (done) => {
-    const taskDescription = "#taskDescription";
     Browser
       .refresh()
-      .wait(taskDescription)
+      .wait("#taskDescription")
       .click("button[type=submit]")
       .wait(".errorText")
       .evaluate(() => {
@@ -94,7 +92,7 @@ describe( "User", function(){
       .wait("#todoPanel")
       .wait(".taskText")
       .evaluate(() => {
-        let text = document.querySelector(".taskText");
+        const text = document.querySelector(".taskText");
         return [text.id.match(/\d+$/)[0], text.innerText];
       })
       .then((task) => {
@@ -119,7 +117,7 @@ describe( "User", function(){
       .wait("#todoPanel")
       .wait(".taskText")
       .evaluate(() => {
-        let taskText= document.querySelector(".taskText");
+        const taskText= document.querySelector(".taskText");
         return  [taskText.id.match(/\d+$/)[0],taskText.innerText];
       })
       .then((taskDetail) => {
@@ -127,8 +125,8 @@ describe( "User", function(){
           .wait(`#task-${taskDetail[0]}`)
           .click(`#task-${taskDetail[0]}`)
           .evaluate(function(task) {
-            let link = document.querySelector(`#taskText${task[0]}`)
-              return [task[1], document.querySelector(`#task-${task[0]}`).innerText];
+            const link = document.querySelector(`#taskText${task[0]}`)
+            return [task[1], document.querySelector(`#task-${task[0]}`).innerText];
           },taskDetail);
       })
       .then((status) => {
@@ -143,7 +141,7 @@ describe( "User", function(){
         .wait("#todoPanel")
         .wait(".taskText")
         .evaluate(() => {
-          let taskText= document.querySelector(".taskText");
+          const taskText= document.querySelector(".taskText");
           return taskText.id.match(/\d+$/)[0];
         })
         .then((taskId) => {
@@ -152,8 +150,8 @@ describe( "User", function(){
             .click(`#taskDelete-${taskId}`)
             .wait(1000)
             .evaluate(function(taskId) {
-              let link = document.querySelector(`#taskDetail-${taskId}`);
-                return [document.querySelector(`#taskDetail-${taskId}`), document.querySelector(`#taskUpdateForm-${taskId}`)];
+              const link = document.querySelector(`#taskDetail-${taskId}`);
+              return [document.querySelector(`#taskDetail-${taskId}`), document.querySelector(`#taskUpdateForm-${taskId}`)];
             },taskId);
         })
         .then((element) => {
