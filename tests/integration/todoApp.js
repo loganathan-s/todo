@@ -1,14 +1,9 @@
-
-const Browser = require('./testConfig').browser;
-const BASE_URL = require('./testConfig').url;
-const onError = ( err ) => {console.error( "Test-runner failed:", err );}
-const expect = require( "chai" ).expect
+import {Browser, BASE_URL, onError, expect } from '../settings/config';
 
 describe( "TODO", function(){
   this.timeout( 15000 );
   // start up with the blank list
   before(( done ) => {
-    
     Browser
         .goto( BASE_URL )
         .evaluate(() => {
