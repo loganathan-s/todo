@@ -1,2 +1,560 @@
-!function(e){function t(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}var n={};t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=4)}([function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=(t.extractNumber=function(e){return parseInt(e.match(/\d+/))?parseInt(e.match(/\d+/)):0},t.resetInput=function(e){return e.value=""},t.displayBackendError=function(e){var t=document.querySelector("#serverError");t.innerHTML=e,t.classList.remove("hide")},function(e){return e.nextSibling&&e.nextSibling.classList&&e.nextSibling.classList.contains("errorText")||!1});t.displayError=function(e){return e.classList.add("shakeIt","inputError"),!r(e)&&e.insertAdjacentHTML("afterend","<span class='errorText'>can't be blank</span>")},t.removeError=function(e){return e.classList.remove("shakeIt","inputError"),!!r(e)&&e.nextSibling.remove()}},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),a=n(2),i=function(e){return e&&e.__esModule?e:{default:e}}(a),u=n(0),c=function(){function e(){r(this,e),this.taskContent=document.querySelector("#taskDescription"),this.parentElement=document.querySelector("#todoPanel")}return o(e,[{key:"init",value:function(){document.querySelector("#createTask").addEventListener("submit",this.createTask.bind(this)),this.displayAllTasks()}},{key:"displayAllTasks",value:function(){(new i.default).index()}},{key:"createTask",value:function(){event.preventDefault();var e=this.taskContent.value;if((0,u.removeError)(this.taskContent),e){var t=document.querySelector(".taskItem"),n=new i.default,r=t&&t.id?(0,u.extractNumber)(t.id)+1:1,o={id:r,text:e};n.create(o)}else(0,u.displayError)(this.taskContent)}},{key:"delete",value:function(e){var t=event.currentTarget.id.match(/\d+/g);(new i.default).delete(t)}},{key:"markCompleteOrIncomplte",value:function(e){var t=new i.default,n=e.currentTarget.id.match(/\d+/g),r=(document.querySelector("#task-"+n),document.querySelector("#taskText"+n).textContent);if(e.currentTarget.classList.contains("updateTask")){var o=document.querySelector("#UpdatedContent-"+n);if((0,u.removeError)(o),!(r=o.value))return void(0,u.displayError)(o);var a={id:n,text:r.replace("-TASKCOMPLETED-","")};t.update(a,n,!0)}else{var c={id:n,text:r+"-TASKCOMPLETED-"};t.update(c,n)}}}]),e}();t.default=c},function(e,t,n){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}function o(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function a(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function i(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var u=function(){function e(e,t){var n=[],r=!0,o=!1,a=void 0;try{for(var i,u=e[Symbol.iterator]();!(r=(i=u.next()).done)&&(n.push(i.value),!t||n.length!==t);r=!0);}catch(e){o=!0,a=e}finally{try{!r&&u.return&&u.return()}finally{if(o)throw a}}return n}return function(t,n){if(Array.isArray(t))return t;if(Symbol.iterator in Object(t))return e(t,n);throw new TypeError("Invalid attempt to destructure non-iterable instance")}}(),c=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),l=n(6),s=n(5),d=r(s),f=n(1),p=r(f),y=n(0),v=n(7),h=r(v),m=function(e){function t(){return o(this,t),a(this,(t.__proto__||Object.getPrototypeOf(t)).call(this))}return i(t,e),c(t,[{key:"index",value:function(){d.default.get(l.BACKENDAPP_URL+"/api/tasks").then(function(e){var t=!0,n=!1,r=void 0;try{for(var o,a=Object.entries(e)[Symbol.iterator]();!(t=(o=a.next()).done);t=!0){var i=u(o.value,2),c=(i[0],i[1]);h.default.Render().updateTaskList(c)}}catch(e){n=!0,r=e}finally{try{!t&&a.return&&a.return()}finally{if(n)throw r}}}).catch(function(e){h.default.Render().displayServerError(e.message)})}},{key:"create",value:function(e){var t=this;d.default.post(l.BACKENDAPP_URL+"/api/tasks",e).then(function(){(0,y.resetInput)(t.taskContent),h.default.Render().updateTaskList(e)}).catch(function(e){h.default.Render().displayBackendError(e.message)})}},{key:"update",value:function(e,t){var n=arguments.length>2&&void 0!==arguments[2]&&arguments[2];d.default.put(l.BACKENDAPP_URL+"/api/tasks/"+t,e).then(function(){n?h.default.Render().updateTaskContent(e):h.default.Render().updateUserDom(t)}).catch(function(e){h.default.Render().displayServerError(e.message)})}},{key:"delete",value:function(e){d.default.delete(l.BACKENDAPP_URL+"/api/tasks/"+e).then(function(){h.default.Render().removeTaskInDom(e)}).catch(function(e){h.default.Render().displayServerError(e.message)})}}]),t}(p.default);t.default=m},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),a=n(2),i=function(e){return e&&e.__esModule?e:{default:e}}(a),u=n(0),c=function(){function e(){r(this,e),this.taskContent=document.querySelector("#taskDescription"),this.parentElement=document.querySelector("#todoPanel")}return o(e,[{key:"init",value:function(){document.querySelector("#createTask").addEventListener("submit",this.createTask.bind(this)),this.displayAllTasks()}},{key:"displayAllTasks",value:function(){(new i.default).index()}},{key:"createTask",value:function(){event.preventDefault();var e=this.taskContent.value;if((0,u.removeError)(this.taskContent),e){var t=document.querySelector(".taskItem"),n=new i.default,r=t&&t.id?(0,u.extractNumber)(t.id)+1:1,o={id:r,text:e};n.create(o)}else(0,u.displayError)(this.taskContent)}},{key:"delete",value:function(e){var t=event.currentTarget.id.match(/\d+/g);(new i.default).delete(t)}},{key:"markCompleteOrIncomplte",value:function(e){var t=new i.default,n=e.currentTarget.id.match(/\d+/g),r=(document.querySelector("#task-"+n),document.querySelector("#taskText"+n).textContent);if(e.currentTarget.classList.contains("updateTask")){var o=document.querySelector("#UpdatedContent-"+n);if((0,u.removeError)(o),!(r=o.value))return void(0,u.displayError)(o);var a={id:n,text:r.replace("-TASKCOMPLETED-","")};t.update(a,n,!0)}else{var c={id:n,text:r+"-TASKCOMPLETED-"};t.update(c,n)}}}]),e}();t.default=c},function(e,t,n){"use strict";var r=n(3),o=function(e){return e&&e.__esModule?e:{default:e}}(r);window.addEventListener("load",function(){(new o.default).init()})},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),a=function(){function e(){r(this,e)}return o(e,null,[{key:"get",value:function(e){return fetch(e).then(function(e){if(!e.ok)throw new Error(e.statusText);return e.json()}).catch(function(e){throw new Error(e)})}},{key:"post",value:function(e,t){return fetch(e,{method:"post",headers:this.HEADERS,body:JSON.stringify(t)}).then(function(e){if(!e.ok)throw new Error(e.statusText);return!0}).catch(function(e){throw new Error(e)})}},{key:"put",value:function(e,t){return fetch(e,{method:"put",headers:this.HEADERS,body:JSON.stringify(t)}).then(function(e){if(!e.ok)throw new Error(e.statusText);return!0}).catch(function(e){throw new Error(e)})}},{key:"delete",value:function(e){return fetch(e,{method:"delete",headers:this.HEADERS}).then(function(e){if(!e.ok)throw new Error(e.statusText);return e.ok}).catch(function(e){throw new Error(e)})}},{key:"HEADERS",get:function(){return{Accept:"application/json, text/plain","Content-Type":"application/json"}}}]),e}();t.default=a},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});t.BACKENDAPP_URL="http://localhost:3000"},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function o(e,t){if(!e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return!t||"object"!=typeof t&&"function"!=typeof t?e:t}function a(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function, not "+typeof t);e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,enumerable:!1,writable:!0,configurable:!0}}),t&&(Object.setPrototypeOf?Object.setPrototypeOf(e,t):e.__proto__=t)}Object.defineProperty(t,"__esModule",{value:!0});var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}(),u=n(1),c=function(e){return e&&e.__esModule?e:{default:e}}(u),l=n(0),s=function(e){function t(){return r(this,t),o(this,(t.__proto__||Object.getPrototypeOf(t)).call(this))}return a(t,e),i(t,[{key:"updateTaskList",value:function(e){this.parentElement.insertAdjacentHTML("afterbegin",this.createTaskElementDom(e));var t=this;document.querySelectorAll("#taskUpdate-"+e.id+", #task-"+e.id).forEach(function(e){e.addEventListener("click",t.markCompleteOrIncomplte.bind(t))}),document.querySelectorAll("#taskEdit-"+e.id+", #cancelUpdate-"+e.id).forEach(function(e){e.addEventListener("click",t.displayUpdateForm.bind(t))}),document.querySelector("#taskDelete-"+e.id).addEventListener("click",this.delete.bind(this))}},{key:"updateUserDom",value:function(e){var t=document.querySelector("#task-"+e);document.querySelector("#taskText"+e).classList.toggle("lineThrough"),t.innerHTML=document.querySelector("#taskText"+e).classList.contains("lineThrough")?"Undo complete":"Mark complete"}},{key:"removeTaskInDom",value:function(e){document.querySelector("#taskDetail-"+e).remove(),document.querySelector("#taskUpdateForm-"+e).remove()}},{key:"displayUpdateForm",value:function(){var e=event.currentTarget.id.match(/\d+/g),t=document.querySelector("#UpdatedContent-"+e);(0,l.removeError)(t),(0,l.resetInput)(t),document.querySelector("#taskUpdateForm-"+e).classList.toggle("hide"),document.querySelector("#taskDetail-"+e).classList.toggle("hide")}},{key:"updateTaskContent",value:function(e){document.querySelector("#task-"+e.id).innerHTML=this.taskCompleted(e)?"Undo complete":"Mark Complete",document.querySelector("#taskText"+e.id).firstChild.nextSibling.innerHTML=""+e.text.replace("-TASKCOMPLETED-",""),document.querySelector("#taskUpdateForm-"+e.id).classList.toggle("hide"),document.querySelector("#taskDetail-"+e.id).classList.toggle("hide")}},{key:"taskCompleted",value:function(e){return!!e.text.includes("-TASKCOMPLETED-")}},{key:"hideBackendError",value:function(){document.querySelector("#ServerError").classList.add("hide")}},{key:"createTaskElementDom",value:function(e){return'<div class="taskItem taskDetail-'+e.id+'" id="taskDetail-'+e.id+'">\n               <div class="taskText '+(this.taskCompleted(e)?"lineThrough":"")+'" id="taskText'+e.id+'">\n                  <p  tooltip="Click to edit!" tooltip-position="bottom"  class="editTask" id="taskEdit-'+e.id+'">\n                    '+e.text.replace("-TASKCOMPLETED-","")+'\n                  </p>\n               </div>\n               <div class="options">\n                    <a class="link zoom" id="task-'+e.id+'">'+(this.taskCompleted(e)?"Undo complete":"Mark complete")+'</a>\n                    <a class="link zoom updateFlex" id="taskDelete-'+e.id+'">Delete</a>\n               </div>\n          </div>\n            <div class="updateForm hide" id="taskUpdateForm-'+e.id+'">\n                <p>\n                 <input type="text" id="UpdatedContent-'+e.id+'" autocomplete="off">\n                </p>\n\n               <p>\n                 <a class="button zoom updateTask" id="taskUpdate-'+e.id+'""> Update</a>\n                 <a  class="button zoom" id="cancelUpdate-'+e.id+'"> Cancel</a>\n               </p>\n            </div>'}},{key:"displayServerError",value:function(e){var t=document.querySelector("#serverError");t.innerHTML=e,t.classList.remove("hide")}}],[{key:"Render",value:function(){return new t}}]),t}(c.default);t.default=s}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* Helper functions  */
+
+const extractNumber = (data)=> (parseInt(data.match(/\d+/)) ? parseInt(data.match(/\d+/)) : 0);
+/* harmony export (immutable) */ __webpack_exports__["b"] = extractNumber;
+
+
+const resetInput = (input)=> (input.value = '');
+/* harmony export (immutable) */ __webpack_exports__["d"] = resetInput;
+
+
+const  displayBackendError = (error) => {
+    let globalError = document.querySelector("#serverError");
+    globalError.innerHTML = error;
+    globalError.classList.remove("hide");
+};
+/* unused harmony export displayBackendError */
+
+
+const hasError = (inputElement) => {
+     return ((inputElement.nextSibling && inputElement.nextSibling.classList && inputElement.nextSibling.classList.contains("errorText")) || false);
+};
+
+const displayError = (inputElement) => {
+    inputElement.classList.add("shakeIt", "inputError");
+    return (!hasError(inputElement) ? inputElement.insertAdjacentHTML("afterend", "<span class='errorText'>can't be blank</span>") : false);
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = displayError;
+
+
+const removeError = (inputElement) => {
+    inputElement.classList.remove("shakeIt", "inputError");
+    return (hasError(inputElement) ? inputElement.nextSibling.remove() : false);
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = removeError;
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dataModel_task__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_helper__ = __webpack_require__(0);
+
+
+
+/* Action Handlers */
+class TaskSetup {
+ 
+  constructor(){
+    this.taskContent = document.querySelector("#taskDescription");
+    this.parentElement =  document.querySelector("#todoPanel");
+  }
+  
+  /* Attach EventListener to elements */  
+  init(){
+    document.querySelector("#createTask").addEventListener("submit",this.createTask.bind(this));
+    this.displayAllTasks();
+  }
+
+  /* Display All tasks when user loads the page */
+  displayAllTasks(){
+     let task = new __WEBPACK_IMPORTED_MODULE_0__dataModel_task__["a" /* default */]();
+     task.index();
+  }
+  
+  /* Create Task using the api */
+  createTask(){
+    event.preventDefault();
+    const text = this.taskContent.value;
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["a" /* removeError */])(this.taskContent);
+    if (text){
+      const recentTask = document.querySelector(".taskItem");
+      const task = new __WEBPACK_IMPORTED_MODULE_0__dataModel_task__["a" /* default */]();
+      const id = ((recentTask && recentTask.id) ? (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["b" /* extractNumber */])(recentTask.id)+1) : 1);
+      const taskData = {id, text};
+      task.create(taskData);
+    }
+    else{
+     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["c" /* displayError */])(this.taskContent);
+     }
+  }
+
+  /* Delete Task Action */
+  delete(taskId){
+    let id = event.currentTarget.id.match(/\d+/g);
+    let task = new __WEBPACK_IMPORTED_MODULE_0__dataModel_task__["a" /* default */]();
+    task.delete(id);
+  }
+  
+  /* Update the Task Text with delimter to keep the persistent data of whether the task is complete/incomplete. */
+  markCompleteOrIncomplte(event){
+    const task = new __WEBPACK_IMPORTED_MODULE_0__dataModel_task__["a" /* default */]();
+    const id = event.currentTarget.id.match(/\d+/g);
+    const taskElement = document.querySelector(`#task-${id}`);
+    let tasktext = document.querySelector(`#taskText${id}`).textContent;
+
+    if(event.currentTarget.classList.contains("updateTask")){
+       const newValue = document.querySelector(`#UpdatedContent-${id}`);
+       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["a" /* removeError */])(newValue);
+       tasktext = newValue.value;
+       if(!tasktext){
+          __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["c" /* displayError */])(newValue);
+          return;
+       }
+       let taskData = {id, text: tasktext.replace("-TASKCOMPLETED-", "")};
+       task.update(taskData, id, true);
+    }else{
+      let taskData = {id, text: `${tasktext}-TASKCOMPLETED-`};
+      task.update(taskData, id);
+    }
+  }
+  
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (TaskSetup);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__settings_backendConf__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__dataApi_httpRequest__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__actions_taskSetup__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helpers_helper__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_taskView__ = __webpack_require__(7);
+
+
+
+
+
+
+/* Class which updates the backend server */
+class Task extends __WEBPACK_IMPORTED_MODULE_2__actions_taskSetup__["a" /* default */] {
+  constructor(){
+    super();
+  }
+
+  /* List All tasks from the backend server */
+  index(){
+    __WEBPACK_IMPORTED_MODULE_1__dataApi_httpRequest__["a" /* default */].get(`${__WEBPACK_IMPORTED_MODULE_0__settings_backendConf__["a" /* BACKENDAPP_URL */]}/api/tasks`)
+      .then(response => {
+        for (let [id, task] of Object.entries(response)) {
+          __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().updateTaskList(task);
+        }
+
+     })
+     .catch(err => {
+       __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().displayServerError(err.message);
+      });
+  }
+  
+  /* Create task on the backend server */
+  create(newTask){
+    __WEBPACK_IMPORTED_MODULE_1__dataApi_httpRequest__["a" /* default */].post(`${__WEBPACK_IMPORTED_MODULE_0__settings_backendConf__["a" /* BACKENDAPP_URL */]}/api/tasks`, newTask)
+    .then(() => {
+       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3__helpers_helper__["d" /* resetInput */])(this.taskContent);
+       __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().updateTaskList(newTask);
+     })
+     .catch(err => {
+       __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().displayBackendError(err.message);
+      });
+  }
+
+  /* Update Task with Flag to indentify the task is completed or not */
+  update(task, id, reloadTask = false){
+   __WEBPACK_IMPORTED_MODULE_1__dataApi_httpRequest__["a" /* default */].put(`${__WEBPACK_IMPORTED_MODULE_0__settings_backendConf__["a" /* BACKENDAPP_URL */]}/api/tasks/${id}`, task).then(() => {
+        (reloadTask ? __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().updateTaskContent(task) : __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().updateUserDom(id));
+       })
+       .catch(err => {
+         __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().displayServerError(err.message);
+        });
+  }
+
+  /*delete Task */
+  delete(taskId){
+   __WEBPACK_IMPORTED_MODULE_1__dataApi_httpRequest__["a" /* default */].delete(`${__WEBPACK_IMPORTED_MODULE_0__settings_backendConf__["a" /* BACKENDAPP_URL */]}/api/tasks/${taskId}`)
+       .then(() => {
+         __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().removeTaskInDom(taskId);
+       })
+       .catch(err => {
+         __WEBPACK_IMPORTED_MODULE_4__views_taskView__["a" /* default */].Render().displayServerError(err.message);
+        });
+    }
+
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (Task);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__dataModel_task__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_helper__ = __webpack_require__(0);
+
+
+
+/* Action Handlers */
+class TaskSetup {
+ 
+  constructor(){
+    this.taskContent = document.querySelector("#taskDescription");
+    this.parentElement =  document.querySelector("#todoPanel");
+  }
+  
+  /* Attach EventListener to elements */  
+  init(){
+    document.querySelector("#createTask").addEventListener("submit",this.createTask.bind(this));
+    this.displayAllTasks();
+  }
+
+  /* Display All tasks when user loads the page */
+  displayAllTasks(){
+     let task = new __WEBPACK_IMPORTED_MODULE_0__dataModel_task__["a" /* default */]();
+     task.index();
+  }
+  
+  /* Create Task using the api */
+  createTask(){
+    event.preventDefault();
+    const text = this.taskContent.value;
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["a" /* removeError */])(this.taskContent);
+    if (text){
+      const recentTask = document.querySelector(".taskItem");
+      const task = new __WEBPACK_IMPORTED_MODULE_0__dataModel_task__["a" /* default */]();
+      const id = ((recentTask && recentTask.id) ? (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["b" /* extractNumber */])(recentTask.id)+1) : 1);
+      const taskData = {id, text};
+      task.create(taskData);
+    }
+    else{
+     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["c" /* displayError */])(this.taskContent);
+     }
+  }
+
+  /* Delete Task Action */
+  delete(taskId){
+    let id = event.currentTarget.id.match(/\d+/g);
+    let task = new __WEBPACK_IMPORTED_MODULE_0__dataModel_task__["a" /* default */]();
+    task.delete(id);
+  }
+  
+  /* Update the Task Text with delimter to keep the persistent data of whether the task is complete/incomplete. */
+  markCompleteOrIncomplte(event){
+    const task = new __WEBPACK_IMPORTED_MODULE_0__dataModel_task__["a" /* default */]();
+    const id = event.currentTarget.id.match(/\d+/g);
+    const taskElement = document.querySelector(`#task-${id}`);
+    let tasktext = document.querySelector(`#taskText${id}`).textContent;
+
+    if(event.currentTarget.classList.contains("updateTask")){
+       const newValue = document.querySelector(`#UpdatedContent-${id}`);
+       __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["a" /* removeError */])(newValue);
+       tasktext = newValue.value;
+       if(!tasktext){
+          __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["c" /* displayError */])(newValue);
+          return;
+       }
+       let taskData = {id, text: tasktext.replace("-TASKCOMPLETED-", "")};
+       task.update(taskData, id, true);
+    }else{
+      let taskData = {id, text: `${tasktext}-TASKCOMPLETED-`};
+      task.update(taskData, id);
+    }
+  }
+  
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (TaskSetup);
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_taskSetUp__ = __webpack_require__(3);
+/* APP JS to start FrontEnd Scripts */
+
+
+window.addEventListener("load", function() {
+ const todoApp = new __WEBPACK_IMPORTED_MODULE_0__actions_taskSetUp__["a" /* default */]();
+ todoApp.init();
+});
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* This module handles all the Express api requests, this can be used for any URL. You just have to pass the URL & data */
+class Request {
+  
+  /* Set Header for All the requests */
+  static get HEADERS() {
+    return  {
+              "Accept":  "application/json, text/plain", 
+              "Content-Type": "application/json"
+            };
+    }
+
+  /* GET Request */
+  static get(url){
+    return fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                throw new Error(response.statusText);
+              }
+              return response.json();
+          })
+   .catch(err => {
+      throw new Error(err);
+    });
+  }
+  
+
+  /* POST Request */
+  static post(url, data){
+    return fetch(url, {method: "post", headers: this.HEADERS, body: JSON.stringify(data)})
+           .then(response => {
+              if (!response.ok) {
+                 throw new Error(response.statusText);
+              }
+              return true;
+            })
+           .catch((err) => {
+               throw new Error(err);
+            });
+  }
+
+  
+  /* PUT Request */
+  static put(url, data){
+    return fetch(url, {method: "put", headers: this.HEADERS, body: JSON.stringify(data)})
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+      return true;
+    })
+    .catch(err => {
+     throw new Error(err);
+    });
+  }
+
+
+  /* DELETE Request */
+  static delete(url){
+      return fetch(url, {method: "delete", headers: this.HEADERS})
+              .then(response => {
+                  if (!response.ok) {
+                  throw new Error(response.statusText);
+                }
+                return response.ok;
+            })
+     .catch(err => {
+       throw new Error(err);
+      });
+    }
+  
+}
+
+/* Default Export */
+/* harmony default export */ __webpack_exports__["a"] = (Request);
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BACKENDAPP_URL; });
+/* Backend Api application, powered by ExpressJs App */
+const BACKENDAPP_URL="http://localhost:3000";
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions_taskSetup__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helpers_helper__ = __webpack_require__(0);
+
+
+
+/* Class Which handles DOM Updates*/
+class View extends __WEBPACK_IMPORTED_MODULE_0__actions_taskSetup__["a" /* default */] {
+  constructor(){
+    super()
+  }
+ 
+  /* Update the Task list */
+  updateTaskList(task){
+      this.parentElement.insertAdjacentHTML("afterbegin", this.createTaskElementDom(task));
+      let parentInstance = this;
+      document.querySelectorAll(`#taskUpdate-${task.id}, #task-${task.id}`).forEach(function(node){
+        node.addEventListener("click", parentInstance.markCompleteOrIncomplte.bind(parentInstance));
+      });
+      document.querySelectorAll(`#taskEdit-${task.id}, #cancelUpdate-${task.id}`).forEach(function(node){
+        node.addEventListener("click", parentInstance.displayUpdateForm.bind(parentInstance));
+      });
+     document.querySelector(`#taskDelete-${task.id}`).addEventListener("click", this.delete.bind(this));
+  }
+  
+  /* Update the Task list to show whether it is completed or not */
+  updateUserDom(id){
+    let link = document.querySelector(`#task-${id}`);
+    document.querySelector(`#taskText${id}`).classList.toggle("lineThrough");
+     link.innerHTML = document.querySelector(`#taskText${id}`).classList.contains("lineThrough") ? "Undo complete" : "Mark complete";
+  }
+
+  /* Remove task from DOM */
+  removeTaskInDom(id){
+    document.querySelector(`#taskDetail-${id}`).remove();
+    document.querySelector(`#taskUpdateForm-${id}`).remove();
+  }
+
+  /* Display task update form */
+  displayUpdateForm(){
+    let id = event.currentTarget.id.match(/\d+/g);
+    let updateInputElement = document.querySelector(`#UpdatedContent-${id}`);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["a" /* removeError */])(updateInputElement);
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helpers_helper__["d" /* resetInput */])(updateInputElement);
+    document.querySelector(`#taskUpdateForm-${id}`).classList.toggle("hide");
+    document.querySelector(`#taskDetail-${id}`).classList.toggle("hide");
+  }
+
+  /* Display updated task */
+  updateTaskContent(task){
+    document.querySelector(`#task-${task.id}`).innerHTML = this.taskCompleted(task) ? "Undo complete" : "Mark Complete";
+    document.querySelector(`#taskText${task.id}`).firstChild.nextSibling.innerHTML  = `${task.text.replace("-TASKCOMPLETED-", "")}`;
+    document.querySelector(`#taskUpdateForm-${task.id}`).classList.toggle("hide");
+    document.querySelector(`#taskDetail-${task.id}`).classList.toggle("hide");
+  }
+
+  taskCompleted(task){
+    return (task.text.includes("-TASKCOMPLETED-") ? true : false);
+  }
+
+  hideBackendError(){
+    document.querySelector(`#ServerError`).classList.add("hide");
+  }
+ 
+  /* Add Task item */
+  createTaskElementDom(task) {
+     return `<div class="taskItem taskDetail-${task.id}" id="taskDetail-${task.id}">
+               <div class="taskText ${this.taskCompleted(task) ? "lineThrough" : ""}" id="taskText${task.id}">
+                  <p  tooltip="Click to edit!" tooltip-position="bottom"  class="editTask" id="taskEdit-${task.id}">
+                    ${task.text.replace("-TASKCOMPLETED-", "")}
+                  </p>
+               </div>
+               <div class="options">
+                    <a class="link zoom" id="task-${task.id}">${this.taskCompleted(task) ? "Undo complete" : "Mark complete"}</a>
+                    <a class="link zoom updateFlex" id="taskDelete-${task.id}">Delete</a>
+               </div>
+          </div>
+            <div class="updateForm hide" id="taskUpdateForm-${task.id}">
+                <p>
+                 <input type="text" id="UpdatedContent-${task.id}" autocomplete="off">
+                </p>
+
+               <p>
+                 <a class="button zoom updateTask" id="taskUpdate-${task.id}""> Update</a>
+                 <a  class="button zoom" id="cancelUpdate-${task.id}"> Cancel</a>
+               </p>
+            </div>`;
+  }
+ 
+ /* Display Server Error */ 
+ displayServerError(error) {
+    let globalError = document.querySelector("#serverError");
+    globalError.innerHTML = error;
+    globalError.classList.remove("hide");
+}
+
+static Render(){
+ return new View();
+}
+  
+}
+
+/* harmony default export */ __webpack_exports__["a"] = (View);
+
+/***/ })
+/******/ ]);
 //# sourceMappingURL=bundle.js.map

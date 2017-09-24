@@ -26,16 +26,16 @@ class TaskSetup {
     event.preventDefault();
     const text = this.taskContent.value;
     removeError(this.taskContent);
-    if (text){
+    if (text) {
       const recentTask = document.querySelector(".taskItem");
       const task = new Task();
       const id = ((recentTask && recentTask.id) ? (extractNumber(recentTask.id)+1) : 1);
       const taskData = {id, text};
       task.create(taskData);
     }
-    else{
-     displayError(this.taskContent);
-     }
+    else {
+      displayError(this.taskContent);
+    }
   }
 
   /* Delete Task Action */
@@ -56,7 +56,7 @@ class TaskSetup {
        const newValue = document.querySelector(`#UpdatedContent-${id}`);
        removeError(newValue);
        tasktext = newValue.value;
-       if(!tasktext){
+       if (!tasktext) {
           displayError(newValue);
           return;
        }

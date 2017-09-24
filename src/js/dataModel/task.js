@@ -6,6 +6,7 @@ import View from "../views/taskView";
 
 /* Class which updates the backend server */
 class Task extends TaskSetup {
+  
   constructor(){
     super();
   }
@@ -17,7 +18,6 @@ class Task extends TaskSetup {
         for (let [id, task] of Object.entries(response)) {
           View.Render().updateTaskList(task);
         }
-
      })
      .catch(err => {
        View.Render().displayServerError(err.message);

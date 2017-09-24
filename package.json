@@ -30,8 +30,6 @@
     "mocha": "^3.5.3",
     "nightmare": "^2.10.0",
     "nodemon": "^1.9.2",
-    "regenerator-runtime": "^0.10.5",
-    "style-loader": "^0.16.1",
     "webpack": "^2.4.1"
   }
 }
