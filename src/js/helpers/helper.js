@@ -1,5 +1,7 @@
+/* Helper functions  */
 
 export const extractNumber = (data)=> (parseInt(data.match(/\d+/)) ? parseInt(data.match(/\d+/)) : 0);
+
 export const resetInput = (input)=> (input.value = '');
 
 export const  displayBackendError = (error) => {
@@ -9,15 +11,15 @@ export const  displayBackendError = (error) => {
 };
 
 const hasError = (inputElement) => {
-     return (inputElement.nextSibling && inputElement.nextSibling.classList && inputElement.nextSibling.classList.contains("errorText")) || false;
-}
+     return ((inputElement.nextSibling && inputElement.nextSibling.classList && inputElement.nextSibling.classList.contains("errorText")) || false);
+};
 
 export const displayError = (inputElement) => {
     inputElement.classList.add("shakeIt", "inputError");
-    return !hasError(inputElement) ? inputElement.insertAdjacentHTML("afterend", "<span class='errorText'>can't be blank</span>") : '';
-}
+    return (!hasError(inputElement) ? inputElement.insertAdjacentHTML("afterend", "<span class='errorText'>can't be blank</span>") : false);
+};
 
 export const removeError = (inputElement) => {
     inputElement.classList.remove("shakeIt", "inputError");
-    return hasError(inputElement) ? inputElement.nextSibling.remove() : '';
-}
+    return (hasError(inputElement) ? inputElement.nextSibling.remove() : false);
+};

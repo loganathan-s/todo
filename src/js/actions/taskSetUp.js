@@ -1,35 +1,27 @@
 import Task from "../dataModel/task";
 import { extractNumber,  displayError, removeError} from "../helpers/helper";
 
+/* Action Handlers */
 class TaskSetup {
- 
  
   constructor(){
     this.taskContent = document.querySelector("#taskDescription");
     this.parentElement =  document.querySelector("#todoPanel");
   }
-
   
-  /*
-  Attach EventListener to elements
-  */  
+  /* Attach EventListener to elements */  
   init(){
-    document.querySelector("#createTask").addEventListener("submit",this.createTask.bind(this))
+    document.querySelector("#createTask").addEventListener("submit",this.createTask.bind(this));
     this.displayAllTasks();
   }
 
-  /*
-  Display All tasks when user loads the page
-  */
-   displayAllTasks(){
+  /* Display All tasks when user loads the page */
+  displayAllTasks(){
      let task = new Task();
      task.index();
-   }
-
+  }
   
-  /* 
-  Create Task using the api 
-  */
+  /* Create Task using the api */
   createTask(){
     event.preventDefault();
     const text = this.taskContent.value;
@@ -37,28 +29,23 @@ class TaskSetup {
     if (text){
       const recentTask = document.querySelector(".taskItem");
       const task = new Task();
-      const id = (recentTask && recentTask.id) ? (extractNumber(recentTask.id)+1) : 1;
+      const id = ((recentTask && recentTask.id) ? (extractNumber(recentTask.id)+1) : 1);
       const taskData = {id, text};
-      task.create(taskData); 
+      task.create(taskData);
     }
     else{
      displayError(this.taskContent);
      }
   }
 
-  /*
-  delete Task 
-  */
+  /* Delete Task Action */
   delete(taskId){
-   let id = event.currentTarget.id.match(/\d+/g);
-     let task = new Task();
-     task.delete(id);
-    }
-
+    let id = event.currentTarget.id.match(/\d+/g);
+    let task = new Task();
+    task.delete(id);
+  }
   
-  /* 
-  Update the Task Text with delimter to keep the persistent data of whether the task is complete/incomplete. 
-  */
+  /* Update the Task Text with delimter to keep the persistent data of whether the task is complete/incomplete. */
   markCompleteOrIncomplte(event){
     const task = new Task();
     const id = event.currentTarget.id.match(/\d+/g);
@@ -79,8 +66,8 @@ class TaskSetup {
       let taskData = {id, text: `${tasktext}-TASKCOMPLETED-`};
       task.update(taskData, id);
     }
-    
   }
+  
 }
 
 export default TaskSetup;

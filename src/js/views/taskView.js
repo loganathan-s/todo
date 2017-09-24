@@ -1,16 +1,13 @@
 import TaskSetup from "../actions/taskSetup";
 import { resetInput, removeError } from "../helpers/helper";
 
-//
-// Class Which handles 
-class View extends TaskSetup{
+/* Class Which handles DOM Updates*/
+class View extends TaskSetup {
   constructor(){
     super()
   }
  
-  //
-  // Update the Task list in html page
-  //
+  /* Update the Task list */
   updateTaskList(task){
       this.parentElement.insertAdjacentHTML("afterbegin", this.createTaskElementDom(task));
       let parentInstance = this;
@@ -23,23 +20,20 @@ class View extends TaskSetup{
      document.querySelector(`#taskDelete-${task.id}`).addEventListener("click", this.delete.bind(this));
   }
   
-  //
-  // Update the Task list to show whether it is complete/incomplete
-  //
+  /* Update the Task list to show whether it is completed or not */
   updateUserDom(id){
     let link = document.querySelector(`#task-${id}`);
     document.querySelector(`#taskText${id}`).classList.toggle("lineThrough");
      link.innerHTML = document.querySelector(`#taskText${id}`).classList.contains("lineThrough") ? "Undo complete" : "Mark complete";
   }
 
-  // 
-  // Remove task from DOM
-  //
+  /* Remove task from DOM */
   removeTaskInDom(id){
     document.querySelector(`#taskDetail-${id}`).remove();
     document.querySelector(`#taskUpdateForm-${id}`).remove();
   }
 
+  /* Display task update form */
   displayUpdateForm(){
     let id = event.currentTarget.id.match(/\d+/g);
     let updateInputElement = document.querySelector(`#UpdatedContent-${id}`);
@@ -49,6 +43,7 @@ class View extends TaskSetup{
     document.querySelector(`#taskDetail-${id}`).classList.toggle("hide");
   }
 
+  /* Display updated task */
   updateTaskContent(task){
     document.querySelector(`#task-${task.id}`).innerHTML = this.taskCompleted(task) ? "Undo complete" : "Mark Complete";
     document.querySelector(`#taskText${task.id}`).firstChild.nextSibling.innerHTML  = `${task.text.replace("-TASKCOMPLETED-", "")}`;
@@ -60,14 +55,11 @@ class View extends TaskSetup{
     return (task.text.includes("-TASKCOMPLETED-") ? true : false);
   }
 
-
   hideBackendError(){
     document.querySelector(`#ServerError`).classList.add("hide");
   }
  
-  //
-  // Creates Task item
-  //
+  /* Add Task item */
   createTaskElementDom(task) {
      return `<div class="taskItem taskDetail-${task.id}" id="taskDetail-${task.id}">
                <div class="taskText ${this.taskCompleted(task) ? "lineThrough" : ""}" id="taskText${task.id}">
@@ -91,15 +83,17 @@ class View extends TaskSetup{
                </p>
             </div>`;
   }
-  
- displayBackendError(error) {
+ 
+ /* Display Server Error */ 
+ displayServerError(error) {
     let globalError = document.querySelector("#serverError");
     globalError.innerHTML = error;
     globalError.classList.remove("hide");
 }
-  static Render(){
-    return new View();
-  }
+
+static Render(){
+ return new View();
+}
   
 }
 

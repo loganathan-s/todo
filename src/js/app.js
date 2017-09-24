@@ -1,4 +1,4 @@
-//Main JS to start FrontEnd Scripts
+/* APP JS to start FrontEnd Scripts */
 import TaskSetUp from "./actions/taskSetUp";
 
 window.addEventListener("load", function() {
