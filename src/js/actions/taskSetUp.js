@@ -51,7 +51,6 @@ class TaskSetup {
     const id = event.currentTarget.id.match(/\d+/g);
     const taskElement = document.querySelector(`#task-${id}`);
     let tasktext = document.querySelector(`#taskText${id}`).textContent;
-
     if(event.currentTarget.classList.contains("updateTask")){
        const newValue = document.querySelector(`#UpdatedContent-${id}`);
        removeError(newValue);
@@ -63,7 +62,8 @@ class TaskSetup {
        let taskData = {id, text: tasktext.replace("-TASKCOMPLETED-", "")};
        task.update(taskData, id, true);
     }else{
-      let taskData = {id, text: `${tasktext}-TASKCOMPLETED-`};
+      let text = event.currentTarget.classList.contains("markComplete") ? `${tasktext}-TASKCOMPLETED-` : tasktext.replace("-TASKCOMPLETED-", "");
+      let taskData = {id, text};
       task.update(taskData, id);
     }
   }

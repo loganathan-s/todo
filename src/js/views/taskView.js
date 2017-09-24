@@ -1,15 +1,15 @@
 import TaskSetup from "../actions/taskSetup";
-import { resetInput, removeError } from "../helpers/helper";
+import { resetInput, removeError, sleep } from "../helpers/helper";
 
-/* Class Which handles DOM Updates*/
+/* Class hich handles DOM Updates*/
 class View extends TaskSetup {
   constructor(){
     super()
   }
  
   /* Update the Task list */
-  updateTaskList(task){
-      this.parentElement.insertAdjacentHTML("afterbegin", this.createTaskElementDom(task));
+  updateTaskList(task, animate){
+      this.parentElement.insertAdjacentHTML("afterbegin", this.createTaskElementDom(task, animate));
       let parentInstance = this;
       document.querySelectorAll(`#taskUpdate-${task.id}, #task-${task.id}`).forEach(function(node){
         node.addEventListener("click", parentInstance.markCompleteOrIncomplte.bind(parentInstance));
@@ -29,8 +29,11 @@ class View extends TaskSetup {
 
   /* Remove task from DOM */
   removeTaskInDom(id){
-    document.querySelector(`#taskDetail-${id}`).remove();
-    document.querySelector(`#taskUpdateForm-${id}`).remove();
+    document.querySelector(`#taskDetail-${id}`).classList.add('removeTask');
+    sleep(1000).then(() => {
+      document.querySelector(`#taskDetail-${id}`).remove();
+      document.querySelector(`#taskUpdateForm-${id}`).remove();
+    });
   }
 
   /* Display task update form */
@@ -45,6 +48,7 @@ class View extends TaskSetup {
 
   /* Display updated task */
   updateTaskContent(task){
+    document.querySelector(`#taskDetail-${task.id}`).classList.remove("addTask");
     document.querySelector(`#task-${task.id}`).innerHTML = this.taskCompleted(task) ? "Undo complete" : "Mark Complete";
     document.querySelector(`#taskText${task.id}`).firstChild.nextSibling.innerHTML  = `${task.text.replace("-TASKCOMPLETED-", "")}`;
     document.querySelector(`#taskUpdateForm-${task.id}`).classList.toggle("hide");
@@ -60,15 +64,15 @@ class View extends TaskSetup {
   }
  
   /* Add Task item */
-  createTaskElementDom(task) {
-     return `<div class="taskItem taskDetail-${task.id}" id="taskDetail-${task.id}">
+  createTaskElementDom(task, animate = false) {
+     return `<div class="taskItem ${animate ? 'addTask' : ''} taskDetail-${task.id}" id="taskDetail-${task.id}">
                <div class="taskText ${this.taskCompleted(task) ? "lineThrough" : ""}" id="taskText${task.id}">
                   <p  tooltip="Click to edit!" tooltip-position="bottom"  class="editTask" id="taskEdit-${task.id}">
                     ${task.text.replace("-TASKCOMPLETED-", "")}
                   </p>
                </div>
                <div class="options">
-                    <a class="link zoom" id="task-${task.id}">${this.taskCompleted(task) ? "Undo complete" : "Mark complete"}</a>
+                    <a class="link zoom ${this.taskCompleted(task) ? '' : 'markComplete'}" id="task-${task.id}">${this.taskCompleted(task) ? "Undo complete" : "Mark complete"}</a>
                     <a class="link zoom updateFlex" id="taskDelete-${task.id}">Delete</a>
                </div>
           </div>
@@ -84,16 +88,16 @@ class View extends TaskSetup {
             </div>`;
   }
  
- /* Display Server Error */ 
- displayServerError(error) {
-    let globalError = document.querySelector("#serverError");
-    globalError.innerHTML = error;
-    globalError.classList.remove("hide");
-}
+  /* Display Server Error */ 
+  displayServerError(error) {
+      let globalError = document.querySelector("#serverError");
+      globalError.innerHTML = error;
+      globalError.classList.remove("hide");
+  }
 
-static Render(){
- return new View();
-}
+  static Render(){
+   return new View();
+  }
   
 }
 

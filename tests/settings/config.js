@@ -3,7 +3,7 @@ import chai from 'chai';
 import Nightmare from 'nightmare';
 import realMouse from 'nightmare-real-mouse';
 
-realMouse(Nightmare)
+realMouse(Nightmare);
 
 export const Browser =  new Nightmare({
             show: true, //Change it to false for headles test

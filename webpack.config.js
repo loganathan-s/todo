@@ -12,7 +12,7 @@ module.exports = {
 	},
     /* Where should the webpack output has to be placed,  in this app '_build' is the output destination */
 	output: {
-		filename: './public/assets/bundle.js'
+		filename: './public/_build/bundle.js'
 
 	},
 	module: {

@@ -1,6 +1,6 @@
 html {
     font-family: sans-serif;
-    background:#F4F4F4;
+    background-color:#F4F4F4;
   }
 
 body {
@@ -94,6 +94,10 @@ header{
   margin: 5px;
 }
 
+.addTask{
+    opacity: 0;
+    animation: addTask-animation .3s linear forwards;
+}
 
 .taskItem{
     border-top-style: solid; 
@@ -112,6 +116,12 @@ header{
     -webkit-box-flex: 0;
         -ms-flex: 0 0 80%;
             flex: 0 0 80%;
+}
+
+.removeTask {
+    animation: removeTask-animation 1s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
+    /*transform origin is moved to the bottom left corner*/
+    transform-origin: 0% 100%;
 }
 
 .taskItem > .options{
@@ -219,7 +229,7 @@ header{
   text-align: center;
   margin-top: 2px;
       -ms-flex-preferred-size: 15%;
-  flex-basis: 10%;     
+  flex-basis: 12%;     
 }
 
 .lineThrough{
@@ -373,6 +383,56 @@ button:focus {outline:0;}
             transform: translate3d(4px, 0, 0);
   }
 }
+
+@keyframes addTask-animation {
+    from {
+        background-color: #FFD700;
+        opacity: 0;
+        transform: translateY(-400px);
+}
+ 
+    to {
+        opacity: 1;
+        transform : translateY(0);
+    }
+}
+
+@keyframes removeTask-animation {
+    0% {
+        opacity: 1;
+        background-color: #FF6300;
+        color: white;
+        transform: rotateZ(0);
+}
+ 
+    100% {
+        opacity: 0;
+        transform: translateY(600px) rotateZ(90deg);
+    }
+}
+
+@keyframes strike{
+  0%   { width : 0; }
+  100% { width: 100%; }
+}
+.strike {
+  position: relative;
+}
+.strike:after {
+  content: ' ';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: black;
+  animation-name: strike;
+  animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards; 
+}
+
 /*Animation styles End */
 
 /* Tooltip Begin*/

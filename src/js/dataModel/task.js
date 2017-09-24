@@ -16,7 +16,7 @@ class Task extends TaskSetup {
     Request.get(`${appURL}/api/tasks`)
       .then(response => {
         for (let [id, task] of Object.entries(response)) {
-          View.Render().updateTaskList(task);
+          View.Render().updateTaskList(task, false);
         }
      })
      .catch(err => {
@@ -29,10 +29,10 @@ class Task extends TaskSetup {
     Request.post(`${appURL}/api/tasks`, newTask)
     .then(() => {
        resetInput(this.taskContent);
-       View.Render().updateTaskList(newTask);
+       View.Render().updateTaskList(newTask, true);
      })
      .catch(err => {
-       View.Render().displayBackendError(err.message);
+       View.Render().displayServerError(err.message);
       });
   }
 
