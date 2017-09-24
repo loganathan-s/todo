@@ -1,14 +1,10 @@
 import {Browser, BASE_URL, onError, expect } from '../settings/config';
 
 describe( "TODO", function(){
-  this.timeout( 15000 );
-  // start up with the blank list
+
   before(( done ) => {
     Browser
         .goto( BASE_URL )
-        .evaluate(() => {
-          return localStorage.clear();
-        })
         .then(() => {
           done();
         });
@@ -166,7 +162,7 @@ describe( "TODO", function(){
         }).catch( onError );
   });
 
-  // disconnect and close Electron process
+  /* disconnect and close Electron process */
   after(() => {
     Browser
       .end();
