@@ -82,7 +82,7 @@ class TaskSetup {
 
   displayError(inputElement){
     inputElement.classList.add("shakeIt", "inputError");
-    !this.hasError(inputElement) ? inputElement.insertAdjacentHTML("afterend", "<span class='errorText'>Oops! Can't be blank</span>") : '';
+    !this.hasError(inputElement) ? inputElement.insertAdjacentHTML("afterend", "<span class='errorText'>can't be blank</span>") : '';
   }
 
   removeError(inputElement){

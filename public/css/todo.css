@@ -12,6 +12,8 @@ body {
 header{
   color:#111111;
   background-color:#FFD700;
+  display: -webkit-box;
+  display: -ms-flexbox; 
   display: flex;
   padding: 10px;
 }
@@ -27,42 +29,67 @@ header{
 .wrapper{
   text-align: center;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox; 
   display: flex;
-  flex: 1 0 100%;
-  flex-wrap: wrap;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding: 5px;
 }
 
 /* TaskForm CSS Begin */
 #taskForm{
-  flex: 1 0 90%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 90%;
+          flex: 1 0 90%;
   padding: 10px;
   height: 30px;
+  display: -webkit-box;
+  display: -ms-flexbox; 
   display: flex;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 
 #taskForm > form:first-child {
-  flex: 2 0 100%;
+  -webkit-box-flex: 2;
+      -ms-flex: 2 0 100%;
+          flex: 2 0 100%;
+  display: -webkit-box;
+  display: -ms-flexbox; 
   display: flex;
 }
 
 #taskForm > form input {
   padding: 10px;
   margin-right: 10px;
-  flex-basis: 80%;
+  -ms-flex-preferred-size: 80%;
+      flex-basis: 80%;
 }
 /* TaskForm CSS End */
 
 
 /* TaskLists stye Begin */ 
 #todoPanel{
-  flex: 0 0 80%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 80%;
+          flex: 0 0 80%;
+  display: -webkit-box; 
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: 100%;
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   padding: 5px;
   margin: 5px;
 }
@@ -74,19 +101,37 @@ header{
     border-color: rgba(0,0,0,.1);
     margin: 1px;
     padding: 1px;
-    flex-direction: row;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex: 0 0 80%;
+    display: -moz-box; 
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 80%;
+            flex: 0 0 80%;
 }
 
 .taskItem > .options{
-  flex: 1 0 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 100%;
+          flex: 1 0 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: row; 
+  display: -moz-box; 
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row; 
 }
 
 .taskText {
-  flex: 0 0 70%;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 70%;
+          flex: 0 0 70%;
 }
 /* TaskLists stye End */ 
 
@@ -96,30 +141,50 @@ header{
   background-color: #fff;
   margin: 5px;
   padding: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  box-sizing: content-box;
-  box-shadow: 0 0 5px 1px black;
-  align-items: center;
+  display: -moz-box; 
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  -webkit-box-shadow: 0 0 5px 1px black;
+          box-shadow: 0 0 5px 1px black;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 1px 15px;
-  flex-grow: 1;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   z-index: 3;
 }
 
 .updateForm > p{
    margin: 5px;
+   display: -webkit-box;
+   display: -ms-flexbox;
    display: flex;
-   justify-content: space-between;
+   display: -moz-box; 
+   -webkit-box-pack: justify;
+       -ms-flex-pack: justify;
+           justify-content: space-between;
 }
 
 .updateForm > p:first-child{
-  flex-grow: 2;
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
 }
 
 .updateForm > p input{
   height: 30px;
-  flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
 }
 .updateForm > p a{
   padding: 10px;
@@ -144,13 +209,17 @@ header{
 
 #serverError {
   padding: 10px;
-  flex-basis: 100%;
+  -ms-flex-preferred-size: 100%;
+      flex-basis: 100%;
 }
 
 .errorText {
   color: red;
   font-size: 16px;
-  margin: 1px;
+  text-align: center;
+  margin-top: 2px;
+      -ms-flex-preferred-size: 15%;
+  flex-basis: 10%;     
 }
 
 .lineThrough{
@@ -163,6 +232,8 @@ header{
   color: #CCCCCC;
   text-decoration: none;
   background-color: transparent;
+  -webkit-transition: background-color 0.5s ease;
+  -o-transition: background-color 0.5s ease;
   transition: background-color 0.5s ease;
 }
 
@@ -177,11 +248,12 @@ header{
 
 input:focus {
   background-color: #FBF1A9;
+  outline:0;
 }
 
 input {height:10px;}
 
-
+button:focus {outline:0;}
 .button{
   color: rgb(0, 0, 0);
   text-decoration: none;
@@ -190,13 +262,14 @@ input {height:10px;}
   border-width: 1px;
   border-radius: 5px;
   padding: .4rem 1rem .4rem 1rem;
-  align-self: center;
-  
+  -ms-flex-item-align: center;
+      align-self: center;  
 }
 
 .button:hover{
   background-color: #FFD700;
   cursor: pointer;
+  border: solid 1px;
 }
 
 
@@ -207,7 +280,8 @@ input {height:10px;}
 .options > a {
   padding: 5px;
   margin: 5px;
-  align-self: center;
+  -ms-flex-item-align: center;
+      align-self: center;
 }
 
 
@@ -218,7 +292,8 @@ input {height:10px;}
 
 .editTask:hover{
   cursor: pointer;
-  box-shadow: 0 3px 8px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.08);
+  -webkit-box-shadow: 0 3px 8px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.08);
+          box-shadow: 0 3px 8px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.08);
 }
 /* Common styles End*/
 
@@ -230,38 +305,72 @@ input {height:10px;}
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
     transition: -webkit-transform .25s ease-out;
+    -webkit-transition: -webkit-transform .25s ease-out;
+    -o-transition: transform .25s ease-out;
     transition: transform .25s ease-out;
+    transition: transform .25s ease-out, -webkit-transform .25s ease-out;
     transition: transform .25s ease-out,-webkit-transform .25s ease-out;
     z-index: 2;
 }
 
 .zoom:hover, .zoom:focus{
   -webkit-transform:scale(1.05);
-  transform:scale(1.05)
+  -ms-transform:scale(1.05);
+      transform:scale(1.05)
 }
 
 .shakeIt {
-  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  perspective: 1000px;
+  -webkit-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+          animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+}
+
+@-webkit-keyframes shake {
+  10%, 90% {
+    -webkit-transform: translate3d(-1px, 0, 0);
+            transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    -webkit-transform: translate3d(2px, 0, 0);
+            transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    -webkit-transform: translate3d(-4px, 0, 0);
+            transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    -webkit-transform: translate3d(4px, 0, 0);
+            transform: translate3d(4px, 0, 0);
+  }
 }
 
 @keyframes shake {
   10%, 90% {
-    transform: translate3d(-1px, 0, 0);
+    -webkit-transform: translate3d(-1px, 0, 0);
+            transform: translate3d(-1px, 0, 0);
   }
   
   20%, 80% {
-    transform: translate3d(2px, 0, 0);
+    -webkit-transform: translate3d(2px, 0, 0);
+            transform: translate3d(2px, 0, 0);
   }
 
   30%, 50%, 70% {
-    transform: translate3d(-4px, 0, 0);
+    -webkit-transform: translate3d(-4px, 0, 0);
+            transform: translate3d(-4px, 0, 0);
   }
 
   40%, 60% {
-    transform: translate3d(4px, 0, 0);
+    -webkit-transform: translate3d(4px, 0, 0);
+            transform: translate3d(4px, 0, 0);
   }
 }
 /*Animation styles End */
@@ -271,7 +380,9 @@ input {height:10px;}
     content: "";
     position: absolute;
     top:-6px;
-    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+            transform: translateX(-50%);
     border-width: 4px 6px 0 6px;
     border-style: solid;
     border-color: rgba(0,0,0,0.7) transparent transparent transparent;
@@ -282,14 +393,18 @@ input {height:10px;}
 [tooltip-position='bottom']::before{
   top:100%;
   margin-top:8px;
-  transform: translateX(-0%) translatey(-100%) rotate(-180deg)
+  -webkit-transform: translateX(-0%) translatey(-100%) rotate(-180deg);
+      -ms-transform: translateX(-0%) translatey(-100%) rotate(-180deg);
+          transform: translateX(-0%) translatey(-100%) rotate(-180deg)
 }
 
 [tooltip]::after {
     content: attr(tooltip);
     position: absolute;
     top:-6px;
-    transform: translateX(-100%) translatey(-50%) ;
+    -webkit-transform: translateX(-100%) translatey(-50%) ;
+        -ms-transform: translateX(-100%) translatey(-50%) ;
+            transform: translateX(-100%) translatey(-50%) ;
     text-align: center;
     padding:4px 2px;
     font-size: 12px;
@@ -310,7 +425,9 @@ input {height:10px;}
   border-color: rgba(0,0,0,.1);
   color: black;
   margin-top:8px;
-  transform: translateX(-50%) translateY(0%);
+  -webkit-transform: translateX(-50%) translateY(0%);
+      -ms-transform: translateX(-50%) translateY(0%);
+          transform: translateX(-50%) translateY(0%);
 }
 
 [tooltip]:hover::after,[tooltip]:hover::before {
@@ -323,26 +440,40 @@ input {height:10px;}
 @media screen and (max-width: 700px) {
   #taskForm{
     height: 100%;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     padding: 10px;
  }
 
-  #taskForm > div > a { margin: 10px; }
+  #taskForm > form > button { margin: 10px; }
 
   .taskItem, .updateForm{
     background-color: #fff7e5;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     text-align: center;
-    justify-content: space-around;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
   }
 
-   #taskForm,  #taskForm > div, #todoPanel {
-      flex-direction: column;
+   #taskForm,  #taskForm > form, #todoPanel {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
    }
 
    .options{
-      flex-direction: row;
-      justify-content: space-around;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
    }
 
    [tooltip]::before {
@@ -350,8 +481,12 @@ input {height:10px;}
   }
 
   .updateForm > p:first-child{
-    flex-direction: column;
-    align-self: stretch;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -ms-flex-item-align: stretch;
+        align-self: stretch;
 }
 
 

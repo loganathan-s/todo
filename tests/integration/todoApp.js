@@ -32,6 +32,22 @@ describe( "TODO", function(){
       }).catch( onError );
   });
 
+  it( "should throw error for empty task create", ( done ) => {
+    const taskDescription = "#taskDescription";
+    Browser
+      .refresh()
+      .wait( taskDescription )
+      .click("#createTask")
+      .wait(".errorText")
+      .evaluate(() => {
+        return document.querySelector( "span.errorText" ).innerText;
+      })
+      .then(( res ) => {
+        expect(res).to.eql( "can't be blank" );
+        done();
+      }).catch( onError );
+  });
+
   it( "should list the tasks", ( done ) => {
     Browser
       .refresh()
@@ -74,6 +90,32 @@ describe( "TODO", function(){
         done();
       }).catch( onError );
   });
+
+  it( "should throw error for an empty task update", ( done ) => {
+    Browser
+      .refresh()
+      .wait("#todoPanel")
+      .wait(".taskText")
+      .evaluate(() => {
+        let text = document.querySelector(".taskText")
+        return [text.id.match(/\d+$/)[0], text.innerText]
+      })
+      .then((task) => {
+        return Browser
+          .wait(`#taskText${task[0]}`)
+          .realClick(`#taskEdit-${task[0]}`)
+          .wait(`#UpdatedContent-${task[0]}`)
+          .click(`#taskUpdate-${task[0]}`)
+          .wait(100)
+          .evaluate(() => document.querySelector( "span.errorText" ).innerText)
+      })
+      .then((res) => {
+       expect(res).to.eql( "can't be blank" );
+        done();
+      }).catch( onError );
+  });
+
+
 
   it( "should mark the task as complete/redo", ( done ) => {
    Browser
