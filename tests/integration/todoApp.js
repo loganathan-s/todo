@@ -19,8 +19,8 @@ describe( "TODO", function(){
     Browser
       .refresh()
       .wait( taskDescription )
-      .type( taskDescription, " MyNewTask ")
-      .click("#createTask")
+      .type( taskDescription, "MyNewTask")
+      .click("button[type=submit]")
       .wait(100)
       .wait( ".editTask" )
       .evaluate(() => {
@@ -37,7 +37,7 @@ describe( "TODO", function(){
     Browser
       .refresh()
       .wait( taskDescription )
-      .click("#createTask")
+      .click("button[type=submit]")
       .wait(".errorText")
       .evaluate(() => {
         return document.querySelector( "span.errorText" ).innerText;

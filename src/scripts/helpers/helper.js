@@ -7,3 +7,17 @@ export const  displayBackendError = (error) => {
     globalError.innerHTML = error;
     globalError.classList.remove("hide");
 };
+
+const hasError = (inputElement) => {
+     return (inputElement.nextSibling && inputElement.nextSibling.classList && inputElement.nextSibling.classList.contains("errorText")) || false;
+}
+
+export const displayError = (inputElement) => {
+    inputElement.classList.add("shakeIt", "inputError");
+    return !hasError(inputElement) ? inputElement.insertAdjacentHTML("afterend", "<span class='errorText'>can't be blank</span>") : '';
+}
+
+export const removeError = (inputElement) => {
+    inputElement.classList.remove("shakeIt", "inputError");
+    return hasError(inputElement) ? inputElement.nextSibling.remove() : '';
+}

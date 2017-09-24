@@ -1,5 +1,5 @@
 import TaskSetup from "../actions/taskSetup";
-import { resetInput } from "../helpers/helper";
+import { resetInput, removeError } from "../helpers/helper";
 
 //
 // Class Which handles 
@@ -43,7 +43,7 @@ class View extends TaskSetup{
   displayUpdateForm(){
     let id = event.currentTarget.id.match(/\d+/g);
     let updateInputElement = document.querySelector(`#UpdatedContent-${id}`);
-    this.removeError(updateInputElement);
+    removeError(updateInputElement);
     resetInput(updateInputElement);
     document.querySelector(`#taskUpdateForm-${id}`).classList.toggle("hide");
     document.querySelector(`#taskDetail-${id}`).classList.toggle("hide");
