@@ -1,4 +1,4 @@
-import {BACKENDAPP_URL as appURL} from "../settings/backendConf";
+import { BACKENDAPP_URL as appURL } from "../settings/backendConf";
 import Request from "../dataApi/httpRequest";
 import TaskSetup from "../actions/taskSetup";
 import { resetInput, displayBackendError } from "../helpers/helper";

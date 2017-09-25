@@ -1,5 +1,5 @@
 import Task from "../dataModel/task";
-import { extractNumber,  displayError, removeError} from "../helpers/helper";
+import { extractNumber,  displayError, removeError } from "../helpers/helper";
 
 /* Action Handlers */
 class TaskSetup {

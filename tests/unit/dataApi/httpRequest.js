@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 import Request from '../../../src/js/dataApi/httpRequest';
-import {BASE_URL, onError, expect, assert } from '../../settings/config';
+import { BASE_URL, onError, expect, assert } from '../../settings/config';
 
-describe('HTTP Request', function() {
+describe('unitTest - HTTP Request', function() {
     beforeEach(() => {
       [Request.get, Request.post, Request.put, Request.delete] = [sinon.stub(), sinon.stub(), sinon.stub(), sinon.stub()];
     });

@@ -1,5 +1,5 @@
 /* Tests for end to end flow */
-import {Browser, BASE_URL, onError, expect } from '../settings/config';
+import { Browser, BASE_URL, onError, expect } from '../settings/config';
 
 describe( "User", function(){
 
