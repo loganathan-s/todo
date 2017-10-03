@@ -3,26 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <title>Todo App</title>
-     <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="./css/todo.css">
       <script src="./_build/bundle.js"></script>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <header>
-        <h4>The application provides the functionality to view the list of to-do items, create them, and mark them as done. The front-end technology is based on <strong> JavaScript-ES6 / HTML / CSS3(Flex Layout)</strong>,Tasks are stored using a Rest service</h4>
+        <h5>
+          The application provides the functionality to view the list of to-do items, create them, and mark them as done. The front-end technology is based on <strong> JavaScript-ES6 / HTML / CSS3(Flex Layout). Use latest Chrome Browser</strong>
+        </h5>
   </header>
-  <div class="wrapper">
-   
-       <div class="panel-block m-t-20" id="taskForm">
-          <div>
-            <input class="input" type="text" id="taskDescription" autocomplete="off">
-            <a class="button is-primary is-medium" id="createTask" disabled="true"> Create task</a>
-          </div>
-          
-        </div>
-        <div id="todoPanel" class="m-t-20">
-            
-        </div>
-  </div>
+  <div id="main">
+    <div class="wrapper">
+      <div id="serverError" class="errorText hide">
+        <ul>
+          <li></li>
+        </ul>
+        <a href="#" id="serverErrorClose">×</a>        
+      </div>
+       <div id="searchForm">
+            <input type="text" id="searchTerm" placeholder="Search Task" autocomplete="off">
+      </div>
+      <div id="taskForm">
+          <form id="createTask">
+            <input type="text" id="taskDescription" placeholder="Task Name" autocomplete="off">
+            <input type="text" id="taskNote" placeholder="Task Note" autocomplete="off">
+            <button type="submit" class="button zoom"> Create task</a>
+          </form>
+      </div>
+    </div>
+     <div id="todoPanel">
+     </div>
+   </div>
 </body>
 </html>
