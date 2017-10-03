@@ -4,10 +4,9 @@ var bodyParser = require('body-parser');
 var logger = require('morgan');
 
 var tasks = {
-	"1": { "id": '1', "text": "Read description of programming challenge" },
-  "2": { "id": "2", "text": "Implement awesome web app" },
-  "3": { "id": "3", "text": "Polish project" },
-  "9": { "id": "9", "text": "Send solution to LogMeIn" }
+  "1": { "id": '1', "text": "What you need to do", "note": "Adding created timestamp", "created_at": "1506927424595" , "updated_at": "1506927424595", "status": "Completed"},
+  "2": { "id": "2", "text": "Implement awesome js app", "note": "JS APP", "created_at": "1506927424595" , "updated_at": "1506927424595", "status": "InComplete"},
+  "3": { "id": "3", "text": "Polish Aoo", "note": "Polish app with your own css" , "created_at": "1506927424595" , "updated_at": "1506927424595", "status": "InComplete"},
 };
 
 app.use(logger('dev'));
@@ -41,7 +40,11 @@ app.post('/api/tasks', function(req, res) {
 
 	tasks[req.body.id] = {
 		id: req.body.id,
-		text: req.body.text
+		text: req.body.text,
+		note: req.body.note,
+		status: req.body.status,
+		created_at: req.body.created_at,
+		updated_at: req.body.updated_at,
 	};
 	res.status(204).send();
 });
@@ -54,7 +57,12 @@ app.put('/api/tasks/:id', function(req, res) {
         }
 
 	tasks[req.params.id].text = req.body.text;
-	res.status(204).send();
+	tasks[req.params.id].note = req.body.note;
+	tasks[req.params.id].status = req.body.status;
+	tasks[req.params.id].created_at = req.body.created_at;
+	tasks[req.params.id].updated_at = req.body.updated_at;
+
+	res.json(tasks[`${req.params.id}`]);
 });
 
 app.delete('/api/tasks/:id', function(req, res) {

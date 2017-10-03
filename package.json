@@ -6,41 +6,30 @@
   "scripts": {
     "start": "nodemon index.js",
     "build": "webpack --progress --watch",
-    "test": "jest"
+    "test": "mocha --compilers js:babel-core/register --recursive tests/"
   },
   "private": true,
   "engines": {
     "node": "4.4.7"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "morgan": "^1.7.0"
-  },
-   "jest": {
-    "transform": {".*": "<rootDir>/node_modules/babel-jest"},
-    "modulePaths": [
-      "/shared/vendor/modules"
-    ],
-    "moduleFileExtensions": ["js"],
-    "moduleDirectories": ["node_modules"],
-
-    "moduleNameMapper": {
-      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js",    
-      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
-    }
+    "mocha-generators": "^2.0.0",
+    "morgan": "^1.7.0",
+    "nightmare-real-mouse": "^1.0.0",
+    "sinon": "^3.3.0"
   },
   "devDependencies": {
-    "babel-core": "^6.24.1",
-    "babel-jest": "^20.0.3",
+    "babel-core": "^6.26.0",
     "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-es2015-native-modules": "^6.9.4",
-    "css-loader": "^0.28.0",
-    "jest": "^20.0.3",
+    "chai": "^4.1.2",
+    "mocha": "^3.5.3",
+    "nightmare": "^2.10.0",
     "nodemon": "^1.9.2",
-    "regenerator-runtime": "^0.10.5",
-    "style-loader": "^0.16.1",
     "webpack": "^2.4.1"
   }
-
 }
