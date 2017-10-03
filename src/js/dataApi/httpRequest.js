@@ -1,11 +1,7 @@
-//
-// This module handles all the Express api requests, this can be used for any URL. You just have to pass the URL & data
-//
-class Request{
+/* This module handles all the Express api requests, this can be used for any URL. You just have to pass the URL & data */
+class Request {
   
-  //
-  // Set Header for All the requests
-  //
+  /* Set Header for All the requests */
   static get HEADERS() {
     return  {
               "Accept":  "application/json, text/plain", 
@@ -13,9 +9,7 @@ class Request{
             };
     }
 
-  //
-  // GET Request
-  //  
+  /* GET Request */
   static get(url){
     return fetch(url)
             .then(response => {
@@ -25,13 +19,12 @@ class Request{
               return response.json();
           })
    .catch(err => {
-      console.log(err);
+      throw new Error(err);
     });
   }
   
-  //
-  // POST Request
-  //  
+
+  /* POST Request */
   static post(url, data){
     return fetch(url, {method: "post", headers: this.HEADERS, body: JSON.stringify(data)})
            .then(response => {
@@ -41,30 +34,27 @@ class Request{
               return true;
             })
            .catch((err) => {
-                 console.log(err);
+               throw new Error(err);
             });
   }
 
-  //
-  // PUT Request
-  //  
+  
+  /* PUT Request */
   static put(url, data){
     return fetch(url, {method: "put", headers: this.HEADERS, body: JSON.stringify(data)})
     .then(response => {
       if (!response.ok) {
         throw new Error(response.statusText);
-      }
-      return true;
+      } 
+      return response.json();
     })
     .catch(err => {
-      console.log(err);
+     throw new Error(err);
     });
   }
 
 
-  //
-  // DELETE Request
-  //  
+  /* DELETE Request */
   static delete(url){
       return fetch(url, {method: "delete", headers: this.HEADERS})
               .then(response => {
@@ -74,11 +64,11 @@ class Request{
                 return response.ok;
             })
      .catch(err => {
-        console.log(err);
+       throw new Error(err);
       });
     }
   
 }
 
-//Default Export
+/* Default Export */
 export default Request;
